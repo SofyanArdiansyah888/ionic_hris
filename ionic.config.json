@@ -1,0 +1,7 @@
+{
+  "name": "ionic_hris",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
