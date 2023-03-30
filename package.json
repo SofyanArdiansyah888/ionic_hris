@@ -1,7 +1,8 @@
 {
-  "name": "ionic_hris",
-  "version": "0.0.1",
+  "name": "ionic_hris_nobel",
+  "version": "1.0.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@capacitor/app": "4.1.1",
     "@capacitor/core": "4.7.1",
