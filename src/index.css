@@ -19,7 +19,7 @@
   }
 }
 
-ion-page > ion-content {
+ion-page > ion-content#content {
   --ion-background-color: #d6d3d1;
   width: 480px;
   max-width: 100%;
@@ -30,11 +30,18 @@ ion-tab-button {
   --color: black;
 }
 
+ion-datetime{
+  border-radius: 20px !important;
+  padding: 8px;
+  font-family: "Poppins";
+  max-width: fit-content;
+}
+
 .form_style {
   outline: none;
   border: 2px solid #000;
   box-shadow: 3px 4px 0px 1px #000;
-  min-width: 290px;
+  /* min-width: 290px; */
   padding: 8px;
   border-radius: 4px;
   font-size: 12px;
@@ -48,7 +55,6 @@ ion-tab-button {
 
 .btn {
   padding: 15px;
-  margin: 30px 0px;
   font-size: 15px;
   border-radius: 30px;
   font-weight: 800;
@@ -64,6 +70,8 @@ ion-tab-button {
   flex-direction: column;
   background-color: rgb(250 250 250);
   min-height: 100vh;
+  z-index: 9999;
+  position: relative;
 }
 
 .form_area {
@@ -73,7 +81,7 @@ ion-tab-button {
   flex-direction: column;
   /* background-color: #fff; */
   height: auto;
-  width: auto;
+  /* width: auto; */
   border-radius: 20px;
   /* box-shadow: 30px 35px 2px rgb(220 38 38 / var(--tw-bg-opacity)); */
 }
@@ -90,4 +98,5 @@ ion-tab-button {
   flex-direction: column;
   align-items: baseline;
   margin: 8px;
+  width: 100%;
 }
