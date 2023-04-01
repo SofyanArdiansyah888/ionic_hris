@@ -12,14 +12,13 @@ export default function CreateAktivitas() {
   return (
     <>
       <IonPage>
-        <KembaliHeader
-          
-          handleKembali={() => history.goBack()}
-        />
+        <KembaliHeader handleKembali={() => history.goBack()} />
         <IonContent fullscreen>
           <div className="flex flex-col  h-full justify-center items-center ">
             <div className="w-full px-12">
-                <h3 className="text-xl font-semibold">Form Pengajuan Izin / Cuti</h3>
+              <h3 className="text-xl font-semibold">
+                Form Pengajuan Izin / Cuti
+              </h3>
               <div className="flex flex-col justify-center items-center my-8 ">
                 <div className="form_group">
                   <label className="text-sm">Jenis Cuti</label>

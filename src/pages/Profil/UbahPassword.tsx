@@ -1,50 +1,96 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { IonContent, IonPage } from "@ionic/react";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import KembaliHeader from "../../components/KembaliHeader";
+import * as yup from "yup";
+import LabelError from "../../components/LabelError";
+import { usePost, usePut } from "../../hooks/useApi";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-export default function UbahPassword() {
-  const [loading, setLoading] = useState<boolean>(false);
+const schema = yup
+  .object({
+    password: yup.string().required(),
+    confirm_password: yup
+      .string()
+      .oneOf([yup.ref("password"), ""], "Passwords must match"),
+  })
+  .required();
+type FormData = yup.InferType<typeof schema>;
+
+const UbahPassword: React.FC = () => {
+  const [user] = useLocalStorage("user");
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    setError,
+  } = useForm<FormData>({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
+
+  const { mutate, isLoading } = usePut({
+    name: "ubah_password",
+    endpoint: `karyawans/${user?.karyawan?.id}/update-password`,
+    onSuccessCallback: () => {},
+  });
+
   const history = useHistory();
+
+  const handleChangePassword = (data: FormData) => {
+    mutate({
+      name: user.name,
+      password: data.password,
+    });
+  };
   return (
-    <IonPage>
-      <KembaliHeader handleKembali={() => history.goBack()} />
+    <>
+      <IonPage>
+        <KembaliHeader handleKembali={() => history.goBack()} />
+        <IonContent fullscreen>
+          <div className="flex flex-col  h-full justify-center items-center ">
+            <form
+              onSubmit={handleSubmit(handleChangePassword)}
+              className="w-full px-12"
+            >
+              <h3 className="text-xl font-semibold">Form Ubah Password</h3>
+              <div className="flex flex-col justify-center items-center my-8 ">
+                <div className="form_group">
+                  <label className="text-sm">Password</label>
+                  <input
+                    type="password"
+                    className="form_style w-full"
+                    {...register("password")}
+                  />
+                  <LabelError errorMessage={errors.password?.message} />
+                </div>
 
-      <IonContent fullscreen>
-        <div className="px-8 ">
-          <div className="flex flex-row items-center w-full  my-12">
-            <div className="form_area px-3">
-              <h3 className="flex justify-start w-full ml-4 my-4 font-semibold text-lg  ">
-                Form Ubah Password
-              </h3>
-
-              <div className="form_group">
-                <label>Password</label>
-                <input type="password" className="form_style" />
-              </div>
-
-              <div className="form_group">
-                <label>Ulangi Password</label>
-                <input className="form_style" type="password" />
+                <div className="form_group">
+                  <label className="text-sm">Ulangi Password</label>
+                  <input
+                    type="password"
+                    className="form_style w-full"
+                    {...register("confirm_password")}
+                  />
+                  <LabelError errorMessage={errors.confirm_password?.message} />
+                </div>
               </div>
 
               <button
-                className="btn bg-red-700 w-full"
-                onClick={() => {
-                  setLoading(true);
-                  setTimeout(() => {
-                    setLoading(false);
-                    // history.push("/tab1");
-                  }, 2000);
-                }}
-                disabled={loading}
+                className="btn bg-red-600 w-full my-4"
+                type="submit"
+                disabled={isLoading}
               >
-                {loading ? "Loading..." : "Submit"}
+                {isLoading ? "Loading..." : "Submit"}
               </button>
-            </div>
+            </form>
           </div>
-        </div>
-      </IonContent>
-    </IonPage>
+        </IonContent>
+      </IonPage>
+    </>
   );
-}
+};
+
+export default UbahPassword;
