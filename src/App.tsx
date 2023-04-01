@@ -58,6 +58,7 @@ import UbahPassword from "./pages/Profil/UbahPassword";
 import { ProtectedRoute } from "./route/ProtectedRoute";
 import { AuthProvider, useAuth } from "./providers/AuthProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
+import CreatePendidikan from "./pages/Profil/DataPendidikan/CreatePendidikan";
 
 setupIonicReact();
 
@@ -71,6 +72,7 @@ const PagesWithoutNavBar = [
   "/data-dokumen",
   "/data-rekening",
   "/create-aktivitas",
+  '/create-pendidikan'
 ];
 const MainTabs: React.FC = () => {
   const location = useLocation();
@@ -194,6 +196,16 @@ const MainTabs: React.FC = () => {
           render={() => (
             <ProtectedRoute>
               <DataPendidikan />
+            </ProtectedRoute>
+          )}
+        />
+
+        <Route
+          exact
+          path="/create-pendidikan"
+          render={() => (
+            <ProtectedRoute>
+              <CreatePendidikan />
             </ProtectedRoute>
           )}
         />
