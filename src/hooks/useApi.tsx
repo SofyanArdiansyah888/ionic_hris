@@ -30,6 +30,7 @@ export function useGet<T>({
 
   function getData(page: number | undefined) {
     let params = new URLSearchParams();
+    
     if (page) {
       params.append("page", page.toString());
     }
@@ -45,10 +46,17 @@ export function useGet<T>({
         if (item[1] !== undefined) params.append(item[0], item[1]);
       });
     }
+
+    let realEndpoint = endpoint
+    if(page || limit || search || filter){
+      realEndpoint = `${endpoint}?${params}`
+    }
+
+    
     return apiRequest({
       token: user?.token,
       method: "GET",
-      endpoint: `${endpoint}?${params}`,
+      endpoint: realEndpoint ,
     });
   }
   return useQuery<T>([name, page], () => getData(page), {

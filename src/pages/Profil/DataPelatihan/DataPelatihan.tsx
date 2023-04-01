@@ -9,10 +9,15 @@ const DataPelatihan: React.FC = () => {
   return (
     <IonPage>
       <TitleHeader
-        title="Data Dokumen"
+        title="Data Pelatihan"
         rightIcon={
           <div className="flex flex-row justify-between items-center gap-4">
-            <PlusCircleIcon className="w-8 h-8" />
+            <PlusCircleIcon
+              className="w-8 h-8 cursor-pointer"
+              onClick={() => {
+                history.push("/create-pelatihan");
+              }}
+            />
             <ArrowLeftCircle
               className="w-8 h-8 cursor-pointer"
               onClick={() => history.goBack()}

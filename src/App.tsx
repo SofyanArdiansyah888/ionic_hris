@@ -59,6 +59,7 @@ import { ProtectedRoute } from "./route/ProtectedRoute";
 import { AuthProvider, useAuth } from "./providers/AuthProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
 import CreatePendidikan from "./pages/Profil/DataPendidikan/CreatePendidikan";
+import CreatePelatihan from "./pages/Profil/DataPelatihan/CreatePelatihan";
 
 setupIonicReact();
 
@@ -72,7 +73,11 @@ const PagesWithoutNavBar = [
   "/data-dokumen",
   "/data-rekening",
   "/create-aktivitas",
-  '/create-pendidikan'
+  "/edit-aktivitas",
+  "/create-pendidikan",
+  "/edit-pendidikan",
+  "/create-pelatihan",
+  "/edit-pelatihan",
 ];
 const MainTabs: React.FC = () => {
   const location = useLocation();
@@ -156,6 +161,16 @@ const MainTabs: React.FC = () => {
           render={() => (
             <ProtectedRoute>
               <DataPelatihan />
+            </ProtectedRoute>
+          )}
+        />
+
+        <Route
+          exact
+          path="/create-pelatihan"
+          render={() => (
+            <ProtectedRoute>
+              <CreatePelatihan />
             </ProtectedRoute>
           )}
         />

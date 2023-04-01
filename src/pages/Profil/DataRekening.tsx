@@ -23,7 +23,7 @@ type FormData = yup.InferType<typeof schema>;
 
 const DataRekening: React.FC = () => {
   const [user] = useLocalStorage("user");
-
+  
   const {
     register,
     formState: { errors },
