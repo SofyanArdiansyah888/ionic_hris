@@ -60,6 +60,7 @@ import { AuthProvider, useAuth } from "./providers/AuthProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
 import CreatePendidikan from "./pages/Profil/DataPendidikan/CreatePendidikan";
 import CreatePelatihan from "./pages/Profil/DataPelatihan/CreatePelatihan";
+import CreateKeluarga from "./pages/Profil/DataKeluarga/CreateKeluarga";
 
 setupIonicReact();
 
@@ -191,6 +192,15 @@ const MainTabs: React.FC = () => {
           render={() => (
             <ProtectedRoute>
               <DataKeluarga />
+            </ProtectedRoute>
+          )}
+        />
+        <Route
+          exact
+          path="/create-keluarga"
+          render={() => (
+            <ProtectedRoute>
+              <CreateKeluarga />
             </ProtectedRoute>
           )}
         />
