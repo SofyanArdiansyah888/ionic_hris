@@ -1,6 +1,7 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { ArrowRightCircleIcon, LockIcon } from "lucide-react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { CiLogout } from "react-icons/ci";
 import { HiOutlineDocument, HiOutlineWallet } from "react-icons/hi2/index";
 import {
   MdFamilyRestroom,
@@ -9,8 +10,20 @@ import {
   MdOutlineSchool,
 } from "react-icons/md/index";
 import { useHistory } from "react-router";
+import { useGet } from "../../hooks/useApi";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { GetDetailPayload } from "../../models/GenericPayload";
+import { KaryawanEntity } from "../../models/Karyawan.entity";
+import { useAuth } from "../../providers/AuthProvider";
 const Profil: React.FC = () => {
   const history = useHistory();
+  const auth = useAuth();
+  const [user] = useLocalStorage("user");
+  const { data, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>({
+    name: "karyawan",
+    endpoint: `karyawans/${user?.karyawan.id}`,
+  });
+
   const menus: IList[] = [
     {
       text: "Ubah Password",
@@ -48,6 +61,11 @@ const Profil: React.FC = () => {
       icon: <HiOutlineWallet className="w-6 h-6 text-red-700 p-1" />,
       handleClick: () => history.push("/data-rekening"),
     },
+    {
+      text: "Keluar",
+      icon: <CiLogout className="w-6 h-6 text-red-700 p-1" />,
+      handleClick: () => auth.logout(),
+    },
   ];
   return (
     <IonPage>
@@ -66,12 +84,11 @@ const Profil: React.FC = () => {
             {/* HEADER TEXT */}
             <div className="text-left">
               {/* <h4 className="text-sm text-slate-500 my-0">Welcome Back,</h4> */}
-              <h1 className="text-xl mt-1 mb-0 font-bold">
-                {" "}
-                Sofyan Ardiansyah
+              <h1 className="text-xl mt-1 mb-0 font-bold capitalize">
+                {data?.data.nama_lengkap}
               </h1>
-              <h4 className="text-sm text-slate-500 mt-1">
-                Software Developer
+              <h4 className="text-sm text-slate-500 mt-1 capitalize">
+                {data?.data.jabatan?.nama_jabatan}
               </h4>
             </div>
           </div>

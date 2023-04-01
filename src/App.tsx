@@ -47,7 +47,7 @@ import Absensi from "./pages/Absensi";
 import CreateAktivitas from "./pages/Aktifitas/CreateAktivitas";
 import Gaji from "./pages/Gaji";
 import Login from "./pages/Login/login";
-import Profil from "./pages/Profil";
+import Profil from "./pages/Profil/Profil";
 import DataDokumen from "./pages/Profil/DataDokumen/DataDokumen";
 import DataKeluarga from "./pages/Profil/DataKeluarga/DataKeluarga";
 import DataPelatihan from "./pages/Profil/DataPelatihan/DataPelatihan";
