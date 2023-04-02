@@ -2,6 +2,7 @@ import { IonContent, IonPage } from "@ionic/react";
 import { PlusCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { CiFilter } from "react-icons/ci";
+import { BsShieldFillPlus, BsShieldPlus } from "react-icons/bs";
 import { useHistory } from "react-router";
 import DateCallendar from "../../components/DateCallendar";
 
@@ -26,7 +27,8 @@ const Tab2: React.FC = () => {
                 />
               </label>
 
-              <PlusCircleIcon className="w-6 h-6 cursor-pointer" onClick={() => history.push('create-aktivitas') } />
+              <BsShieldFillPlus className="w-6 h-6 cursor-pointer" onClick={() => history.push('create-cuti') } />
+              <BsShieldPlus className="w-6 h-6 cursor-pointer" onClick={() => history.push('create-izin') } />
             </div>
           }
         />

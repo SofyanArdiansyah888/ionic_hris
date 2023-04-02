@@ -44,7 +44,7 @@ import {
 } from "lucide-react";
 import { useLayoutEffect } from "react";
 import Absensi from "./pages/Absensi";
-import CreateAktivitas from "./pages/Aktifitas/CreateAktivitas";
+import CreateCuti from "./pages/Aktifitas/CreateCuti";
 import Gaji from "./pages/Gaji";
 import Login from "./pages/Login/login";
 import Profil from "./pages/Profil/Profil";
@@ -61,6 +61,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import CreatePendidikan from "./pages/Profil/DataPendidikan/CreatePendidikan";
 import CreatePelatihan from "./pages/Profil/DataPelatihan/CreatePelatihan";
 import CreateKeluarga from "./pages/Profil/DataKeluarga/CreateKeluarga";
+import CreateIzin from "./pages/Aktifitas/CreateIzin";
 
 setupIonicReact();
 
@@ -257,10 +258,20 @@ const MainTabs: React.FC = () => {
 
         <Route
           exact
-          path="/create-aktivitas"
+          path="/create-cuti"
           render={() => (
             <ProtectedRoute>
-              <CreateAktivitas />
+              <CreateCuti />
+            </ProtectedRoute>
+          )}
+        />
+
+        <Route
+          exact
+          path="/create-izin"
+          render={() => (
+            <ProtectedRoute>
+              <CreateIzin />
             </ProtectedRoute>
           )}
         />
