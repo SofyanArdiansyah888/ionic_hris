@@ -1,10 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IonContent, IonPage } from "@ionic/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import * as yup from "yup";
 import KembaliHeader from "../../../components/KembaliHeader";
 import LabelError from "../../../components/LabelError";
+import NotifAlert from "../../../components/NotifAlert";
 import { usePost } from "../../../hooks/useApi";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
@@ -19,22 +21,27 @@ type FormData = yup.InferType<typeof schema>;
 
 const CreatePelatihan: React.FC = () => {
   const [user] = useLocalStorage("user");
-
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [dangerAlert, setDangerAlert] = useState(false);
   const {
     register,
     formState: { errors },
     handleSubmit,
-    setError,
-    setValue,
+    reset
   } = useForm<FormData & { karyawan_id: string }>({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
 
   const { mutate, isLoading: isCreateLoading } = usePost({
-    name: "riwayat-training-karyawans",
+    name: "karyawan",
     endpoint: `riwayat-training-karyawans`,
-    onSuccessCallback: () => {},
+    onSuccessCallback: () => {
+      setSuccessAlert(true)
+      history.push('/data-pelatihan');
+      reset()
+    },
+    onErrorCallback: () => setDangerAlert(true),
   });
 
   const history = useHistory();
@@ -48,7 +55,7 @@ const CreatePelatihan: React.FC = () => {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/data-pelatihan')} />
         <IonContent fullscreen>
           <div className="flex flex-col  h-full justify-center items-center ">
             <form
@@ -99,6 +106,18 @@ const CreatePelatihan: React.FC = () => {
           </div>
         </IonContent>
       </IonPage>
+      <NotifAlert
+        isOpen={successAlert}
+        handleCancel={() => setSuccessAlert(false)}
+        message="Berhasil Membuat Pelatihan"
+        type="success"
+      />
+      <NotifAlert
+        isOpen={dangerAlert}
+        handleCancel={() => setDangerAlert(false)}
+        message="Gagal Membuat Pelatihan"
+        type="danger"
+      />
     </>
   );
 };

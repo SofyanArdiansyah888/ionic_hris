@@ -1,11 +1,25 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { ArrowLeftCircle, PlusCircleIcon, Trash2Icon } from "lucide-react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import CircleShadowButton from "../../../components/CircleShadowButton";
+import Loading from "../../../components/Loading";
 import TitleHeader from "../../../components/TitleHeader";
+import { useGet } from "../../../hooks/useApi";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { GetDetailPayload } from "../../../models/GenericPayload";
+import { KaryawanEntity } from "../../../models/Karyawan.entity";
 
 const DataPelatihan: React.FC = () => {
   const history = useHistory();
+  const [user] = useLocalStorage("user");
+
+  const { data: payload, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>(
+    {
+      name: "karyawan",
+      endpoint: `karyawans/${user?.karyawan.id}`,
+    }
+  );
   return (
     <IonPage>
       <TitleHeader
@@ -20,31 +34,43 @@ const DataPelatihan: React.FC = () => {
             />
             <ArrowLeftCircle
               className="w-8 h-8 cursor-pointer"
-              onClick={() => history.goBack()}
+              onClick={() => history.push("/profil")}
             />
           </div>
         }
       />
 
       <IonContent fullscreen>
-        <div className="px-6 mt-4 divide-y-2  ">
-          <ul className="max-w-md divide-y-2 divide-black">
-            {[1, 2, 3, 1, 1, 1, 1, 1, 1, 1].map(() => (
-              <li className="py-3">
-                <div className="flex flex-row justify-between items-center">
-                  <p className="text-xs font-bold text-gray-900 flex gap-3 items-center ">
-                    <CircleShadowButton
-                      icon={<Trash2Icon className="w-6 h-6 p-1 text-red-700" />}
-                    />
-                    File Karyawan.xlsx
-                  </p>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className="px-6 mt-4 divide-y-2  ">
+            <ul className="max-w-md divide-y-2 divide-black">
+              {payload?.data?.riwayat_training_karyawans?.map(
+                (pelatihan, index) => (
+                  <li key={index} className="py-3 cursor-pointer">
+                    <div className="text-xs font-bold text-gray-900 flex gap-3 items-center w-full ">
+                      <CircleShadowButton
+                        icon={
+                          <Trash2Icon className="w-6 h-6 p-1 text-red-700" />
+                        }
+                      />
 
-                  <p className="text-xs text-slate-500 ">23 Jan 2023</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+                      <div className="flex-1">
+                        <Link to={`/data-pelatihan/${pelatihan.id}`}>
+                          <p>{pelatihan.nama_kegiatan}</p>
+                          <p className="text-xs text-slate-500 font-light ">
+                            {pelatihan.tahun}
+                          </p>
+                        </Link>
+                      </div>
+                    </div>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        )}
       </IonContent>
     </IonPage>
   );

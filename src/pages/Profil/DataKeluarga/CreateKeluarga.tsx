@@ -38,7 +38,7 @@ const CreateKeluarga: React.FC = () => {
   });
 
   const { mutate, isLoading: isCreateLoading } = usePost({
-    name: "keluarga-karyawans",
+    name: "karyawan",
     endpoint: `keluarga-karyawans`,
     onSuccessCallback: () => {
       setSuccessAlert(true)
