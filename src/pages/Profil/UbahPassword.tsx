@@ -7,6 +7,9 @@ import * as yup from "yup";
 import LabelError from "../../components/LabelError";
 import { usePost, usePut } from "../../hooks/useApi";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useAuth } from "../../providers/AuthProvider";
+import NotifAlert from "../../components/NotifAlert";
+import { useState } from "react";
 
 const schema = yup
   .object({
@@ -20,7 +23,8 @@ type FormData = yup.InferType<typeof schema>;
 
 const UbahPassword: React.FC = () => {
   const [user] = useLocalStorage("user");
-
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [dangerAlert, setDangerAlert] = useState(false);
   const {
     register,
     formState: { errors },
@@ -31,10 +35,15 @@ const UbahPassword: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
+  const auth = useAuth();
   const { mutate, isLoading } = usePut({
     name: "ubah_password",
     endpoint: `karyawans/${user?.karyawan?.id}/update-password`,
-    onSuccessCallback: () => {},
+    onSuccessCallback: () => {
+      setSuccessAlert(true);
+      auth.logout();
+    },
+    onErrorCallback: () => setDangerAlert(true),
   });
 
   const history = useHistory();
@@ -89,6 +98,18 @@ const UbahPassword: React.FC = () => {
           </div>
         </IonContent>
       </IonPage>
+      <NotifAlert
+        isOpen={successAlert}
+        handleCancel={() => setSuccessAlert(false)}
+        message="Berhasil Edit Pendidikan"
+        type="success"
+      />
+      <NotifAlert
+        isOpen={dangerAlert}
+        handleCancel={() => setDangerAlert(false)}
+        message="Gagal Edit Pendidikan"
+        type="danger"
+      />
     </>
   );
 };

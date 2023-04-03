@@ -9,7 +9,6 @@ import { useGet } from "../../../hooks/useApi";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { GetDetailPayload } from "../../../models/GenericPayload";
 import { KaryawanEntity } from "../../../models/Karyawan.entity";
-import { useSelectPendidikanStore } from "../../../store/PendidikanKaryawanStore";
 
 const DataPendidikan: React.FC = () => {
   const history = useHistory();
@@ -36,7 +35,7 @@ const DataPendidikan: React.FC = () => {
             />
             <ArrowLeftCircle
               className="w-8 h-8 cursor-pointer"
-              onClick={() => history.goBack()}
+              onClick={() => history.push('/profil')}
             />
           </div>
         }
