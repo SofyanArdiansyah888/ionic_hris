@@ -62,6 +62,7 @@ import CreatePendidikan from "./pages/Profil/DataPendidikan/CreatePendidikan";
 import CreatePelatihan from "./pages/Profil/DataPelatihan/CreatePelatihan";
 import CreateKeluarga from "./pages/Profil/DataKeluarga/CreateKeluarga";
 import CreateIzin from "./pages/Aktifitas/CreateIzin";
+import EditPendidikan from "./pages/Profil/DataPendidikan/EditPendidikan";
 
 setupIonicReact();
 
@@ -222,6 +223,16 @@ const MainTabs: React.FC = () => {
           render={() => (
             <ProtectedRoute>
               <DataPendidikan />
+            </ProtectedRoute>
+          )}
+        />
+
+        <Route
+          exact
+          path="/data-pendidikan/:id"
+          render={() => (
+            <ProtectedRoute>
+              <EditPendidikan />
             </ProtectedRoute>
           )}
         />

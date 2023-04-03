@@ -1,10 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IonContent, IonPage } from "@ionic/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import * as yup from "yup";
 import KembaliHeader from "../../../components/KembaliHeader";
 import LabelError from "../../../components/LabelError";
+import NotifAlert from "../../../components/NotifAlert";
 import { usePost } from "../../../hooks/useApi";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
@@ -20,22 +22,29 @@ type FormData = yup.InferType<typeof schema>;
 
 const CreatePendidikan: React.FC = () => {
   const [user] = useLocalStorage("user");
-
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [dangerAlert, setDangerAlert] = useState(false);
   const {
     register,
     formState: { errors },
     handleSubmit,
     setError,
     setValue,
+    reset
   } = useForm<FormData & { karyawan_id: string }>({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
 
   const { mutate, isLoading: isCreateLoading } = usePost({
-    name: "pendidikan-karyawans",
+    name: "karyawan",
     endpoint: `pendidikan-karyawans`,
-    onSuccessCallback: () => {},
+    onSuccessCallback: () => {
+      setSuccessAlert(true)
+      history.push('/data-pendidikan');
+      reset()
+    },
+    onErrorCallback: () => setDangerAlert(true),
   });
 
   const history = useHistory();
@@ -110,6 +119,18 @@ const CreatePendidikan: React.FC = () => {
           </div>
         </IonContent>
       </IonPage>
+      <NotifAlert
+        isOpen={successAlert}
+        handleCancel={() => setSuccessAlert(false)}
+        message="Berhasil Membuat Pendidikan"
+        type="success"
+      />
+      <NotifAlert
+        isOpen={dangerAlert}
+        handleCancel={() => setDangerAlert(false)}
+        message="Gagal Membuat Pendidikan"
+        type="danger"
+      />
     </>
   );
 };

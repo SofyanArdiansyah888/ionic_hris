@@ -68,7 +68,7 @@ export function useGet<T>({
       //   navigate("/500");
       // } else if (error?.response?.status === 401) navigate("/401");
     },
-    // keepPreviousData: true,
+    keepPreviousData: false,
     // enabled:Boolean(filter)
   });
 }

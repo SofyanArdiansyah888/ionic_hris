@@ -9,7 +9,6 @@ export const useLocalStorage = (
       const value = window.localStorage.getItem(keyName);
       
       if (value) {
-        console.log(JSON.parse(value), 'value di localstorage')
         return JSON.parse(value);
       } else {
         window.localStorage.setItem(keyName, JSON.stringify(defaultValue));

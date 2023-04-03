@@ -43,7 +43,7 @@ export default function CreateIzin() {
     endpoint: "izins",
     limit: 0,
     filter: {
-      jenis_izin: "cuti",
+      jenis_izin: "izin",
     },
   });
 
@@ -77,7 +77,7 @@ export default function CreateIzin() {
               <h3 className="text-xl font-semibold">Form Pengajuan Izin</h3>
               <div className="flex flex-col justify-center items-center my-8 ">
                 <div className="form_group">
-                  <label className="text-sm">Cuti</label>
+                  <label className="text-sm">Izin</label>
                   <select
                     className="form_style w-full"
                     {...register("izin_id")}
@@ -145,7 +145,7 @@ export default function CreateIzin() {
         isOpen={showAlert}
         handleCancel={() => setShowAlert(false) }
         message="Berhasil Membuat Izin Baru"
-        icon={undefined}
+        type="success"
       />
     </>
   );

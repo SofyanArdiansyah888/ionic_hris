@@ -1,18 +1,31 @@
 import { CheckCircle2Icon } from "lucide-react";
+import { MdOutlineDangerous, MdWarning } from "react-icons/md";
 
 interface INotifAlert {
   isOpen: boolean;
   handleCancel(): void;
   message: string;
-  icon: any
+  type: 'danger' | 'warning' | 'success'
 }
 
 export default function NotifAlert({
   handleCancel,
   isOpen,
-  message
+  message,
+  type
 }: INotifAlert) {
   
+  const AlertIcon = () => {
+    switch(type){
+      case 'danger' : 
+      return <MdOutlineDangerous className="text-green-300 mx-auto w-20 h-20" />
+      case 'warning' : 
+      return <MdWarning className="text-green-300 mx-auto w-20 h-20" />
+      case 'success' : 
+      return <CheckCircle2Icon className="text-green-300 mx-auto w-20 h-20" />
+    }
+    
+  }
 
   return (
     <>
@@ -21,7 +34,7 @@ export default function NotifAlert({
         <div className="modal-box w-[320px]">
           <h3 className="text-xl font-semibold mb-6">Notification</h3>
           <div className="w-full text-center ">
-            <CheckCircle2Icon className="text-green-300 mx-auto w-20 h-20" />
+            <AlertIcon />
             <p className="my-4 text-xl font-semibold">{message}</p>
           </div>  
 
