@@ -17,6 +17,7 @@
 import { KaryawanEntity } from "./Karyawan.entity";
 
 export interface RiwayatPenggajianEntity {
+  id:number;
   karyawan_id: number;
   karyawan: KaryawanEntity
   total_tunjangan: number
@@ -24,5 +25,7 @@ export interface RiwayatPenggajianEntity {
   gaji_pokok: number;
   total_gaji: number;
   periode: string;
+  detail_tunjangan: [];
+  detail_potongan: [];
 }
 

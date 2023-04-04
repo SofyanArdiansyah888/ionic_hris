@@ -2,7 +2,7 @@ const sanitizeNumber = (stringNumber: string) => {
   return Number(stringNumber.replace(/\D/g, ""));
 };
 
-function formatRupiah(angka: number | string, prefix: string = "Rp.") {
+function formatRupiah(angka: number | string | undefined, prefix: string = "Rp.") {
   if (angka) {
     const tempAngka = angka.toString();
     var number_string = tempAngka.replace(/[^,\d]/g, "").toString(),

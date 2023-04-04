@@ -45,7 +45,7 @@ import {
 import { useEffect, useLayoutEffect } from "react";
 import Absensi from "./pages/Absensi";
 import CreateCuti from "./pages/Aktifitas/CreateCuti";
-import Gaji from "./pages/Gaji";
+import Gaji from "./pages/Gaji/Gaji";
 import Login from "./pages/Login/login";
 import Profil from "./pages/Profil/Profil";
 import DataDokumen from "./pages/Profil/DataDokumen/DataDokumen";
@@ -70,6 +70,8 @@ import { BackgroundGeolocationPlugin } from "@capacitor-community/background-geo
 import { registerPlugin } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
 import DetailAktivitas from "./pages/Aktifitas/DetailAktivitas";
+import "moment/locale/id";
+import DetailGaji from "./pages/Gaji/DetailGaji";
 const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
   "BackgroundGeolocation"
 );
@@ -303,6 +305,16 @@ const MainTabs: React.FC = () => {
           render={() => (
             <ProtectedRoute>
               <Gaji />
+            </ProtectedRoute>
+          )}
+        />
+
+        <Route
+          exact
+          path="/gaji/:id"
+          render={() => (
+            <ProtectedRoute>
+              <DetailGaji />
             </ProtectedRoute>
           )}
         />

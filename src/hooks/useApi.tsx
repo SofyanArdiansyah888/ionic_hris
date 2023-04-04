@@ -127,7 +127,7 @@ function useGenericPost<T>({
       // if (error?.response?.status === 500) {
       //   navigate("/500");
       // } else if (error?.response?.status === 401) navigate("/401");
-      // if (onErrorCallback) onErrorCallback!(error);
+      if (onErrorCallback) onErrorCallback!(error);
     },
   });
 }

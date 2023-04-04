@@ -4,22 +4,24 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { CiFilter } from "react-icons/ci";
 import { useHistory } from "react-router";
-import DateCallendar from "../components/DateCallendar";
-import EmptyBox from "../components/EmptyBox";
-import Loading from "../components/Loading";
-import TitleHeader from "../components/TitleHeader";
-import { useGet } from "../hooks/useApi";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { GetPayload } from "../models/GenericPayload";
-import { RiwayatPenggajianEntity } from "../models/RiwayatPenggajian.entity";
-import { formatRupiah } from "../utils/formatter";
+import DateCallendar from "../../components/DateCallendar";
+import EmptyBox from "../../components/EmptyBox";
+import Loading from "../../components/Loading";
+import TitleHeader from "../../components/TitleHeader";
+import { useGet } from "../../hooks/useApi";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { GetPayload } from "../../models/GenericPayload";
+import { RiwayatPenggajianEntity } from "../../models/RiwayatPenggajian.entity";
+import { formatRupiah } from "../../utils/formatter";
+import { Link } from "react-router-dom";
 
 const Gaji: React.FC = () => {
   const [isFilterModal, setIsFilterModal] = useState(false);
+
   const [date, setDate] = useState<string | string[] | null | undefined>(
     moment().format("MMMM Y")
   );
-  
+
   const [user] = useLocalStorage("user");
   const history = useHistory();
 
@@ -32,7 +34,7 @@ const Gaji: React.FC = () => {
     endpoint: `riwayat-penggajians`,
     filter: {
       date,
-      karyawan_id: user?.karyawan?.id
+      karyawan_id: user?.karyawan?.id,
     },
   });
 
@@ -54,7 +56,7 @@ const Gaji: React.FC = () => {
             </div>
           }
         />
-        <IonContent fullscreen >
+        <IonContent fullscreen>
           {isFetching ? (
             <Loading />
           ) : (
@@ -63,7 +65,7 @@ const Gaji: React.FC = () => {
                 <div className="px-6 ">
                   <div className="max-w-md  divide-black">
                     {payload?.data.map((riwayat) => (
-                      
+                      <Link to={`/gaji/${riwayat.id}`}>
                         <div className="flex flex-col gap-3">
                           <div className="flex-1 min-w-0">
                             <p className="text-md font-bold text-gray-900 ">
@@ -100,7 +102,7 @@ const Gaji: React.FC = () => {
                             </div>
                           </div>
                         </div>
-                      
+                      </Link>
                     ))}
                   </div>
                 </div>

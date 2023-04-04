@@ -13,8 +13,10 @@ import { register } from "../../serviceWorkerRegistration";
 import { RiwayatIzinEntity } from "../../models/RiwayatIzin.entity";
 import moment from "moment";
 import NotifAlert from "../../components/NotifAlert";
+import { RiwayatPenggajianEntity } from "../../models/RiwayatPenggajian.entity";
+import { formatRupiah } from "../../utils/formatter";
 
-const DetailAktivitas: React.FC = () => {
+const DetailGaji: React.FC = () => {
   const [user] = useLocalStorage("user");
   const params: any = useParams();
   const history = useHistory();
@@ -22,19 +24,10 @@ const DetailAktivitas: React.FC = () => {
   const [dangerAlert, setDangerAlert] = useState(false);
 
   const { data, isFetching, refetch } = useGet<
-    GetDetailPayload<RiwayatIzinEntity>
+    GetDetailPayload<RiwayatPenggajianEntity>
   >({
-    name: "riwayat-izin",
-    endpoint: `riwayat-izins/${params?.id}`,
-  });
-
-  const { mutate, isLoading: isApproveLoading } = usePost({
-    name: "riwayat-izin,riwayat-izins",
-    endpoint: `riwayat-izins/update-status`,
-    onSuccessCallback: () => {
-      setSuccessAlert(true);
-    },
-    onErrorCallback: () => setDangerAlert(true),
+    name: "riwayat-penggajian",
+    endpoint: `riwayat-penggajians/${params?.id}`,
   });
 
   useEffect(() => {
@@ -42,38 +35,42 @@ const DetailAktivitas: React.FC = () => {
   }, [params]);
 
   const kegiatans = [
-    { judul: "Nama Karyawan", deskripti: data?.data?.karyawan?.nama_lengkap },
-    { judul: "Jenis Izin", deskripti: data?.data?.izin?.jenis_izin },
-    { judul: "Izin", deskripti: data?.data?.izin?.nama_izin },
-    { judul: "Jumlah Hari", deskripti: `${data?.data.jumlah_hari} Hari` },
+    { judul: "Periode", deskripti: (moment(data?.data?.periode).format('MMMM Y')) },
+    { judul: "Gaji Pokok", deskripti: formatRupiah(data?.data?.gaji_pokok) },
     {
-      judul: "Tanggal Mulai",
-      deskripti: moment(data?.data.tanggal_mulai).format("DD MMM YYYY"),
+      judul: "Total Tunjangan",
+      deskripti: formatRupiah(data?.data.total_tunjangan),
     },
     {
-      judul: "Tanggal Selesai",
-      deskripti: moment(data?.data.tanggal_mulai).format("DD MMM YYYY"),
+      judul: "Total Potongan",
+      deskripti: formatRupiah(data?.data.total_potongan),
     },
-    { judul: "Status Pengajuan", deskripti: data?.data.status },
-    { judul: "Keterangan", deskripti: data?.data.keterangan },
-  ];
 
-  const handleApprove = () => {
-    mutate({
-      id: params?.id,
-      status: "disetujui atasan",
-    });
-  };
+    {
+      judul: "Detail Tunjangan",
+      deskripti: "",
+      details: data?.data.detail_tunjangan,
+    },
+    {
+      judul: "Detail Potongan",
+      deskripti: "",
+      details: data?.data.detail_potongan,
+    },
+    {
+      judul: "Gaji Yang Diterima",
+      deskripti: formatRupiah(data?.data.total_gaji),
+    },
+  ];
 
   return (
     <IonPage>
-      <KembaliHeader handleKembali={() => history.push("/aktifitas")} />
+      <KembaliHeader handleKembali={() => history.push("/gaji")} />
       <IonContent fullscreen>
         {isFetching ? (
           <Loading />
         ) : (
           <div className="  px-4 py-6   ">
-            <h2 className="font-semibold  text-xl">Detail Aktifitas</h2>
+            <h2 className="font-semibold  text-xl">Detail Gaji</h2>
             <div className="flex  flex-col w-full divide-y-2 gap-3 my-8 ">
               {kegiatans.map((kegiatan) => (
                 <div>
@@ -82,16 +79,6 @@ const DetailAktivitas: React.FC = () => {
                 </div>
               ))}
             </div>
-            {data?.data.status === "pengajuan" &&
-              data.data.karyawan.atasan_id === user?.karyawan?.id && (
-                <button
-                  className="btn static bg-red-700 justify-end"
-                  disabled={isApproveLoading}
-                  onClick={handleApprove}
-                >
-                  {isApproveLoading ? "Loading..." : "Approve"}
-                </button>
-               )}
           </div>
         )}
       </IonContent>
@@ -111,4 +98,4 @@ const DetailAktivitas: React.FC = () => {
   );
 };
 
-export default DetailAktivitas;
+export default DetailGaji;
