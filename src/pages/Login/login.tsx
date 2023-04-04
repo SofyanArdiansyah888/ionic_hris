@@ -50,29 +50,10 @@ export default function Login() {
   const handleLogin = (data: FormData) => {
     mutate(data);
   };
-  const [coor, setCoor] = useState<any>()
-  
-  // const printCurrentPosition = async () => {
-    
-  //   const coordinates = await Geolocation.watchPosition({
-  //     enableHighAccuracy: true,
-      
-  //   },(data) => {
-      
-  //     if(data){
-  //       alert(data?.coords)
-  //       setCoor(data?.coords)
-  //     }
-  //   })
-  // };
 
-
-
-  
 
   return (
     <div className="container-auth">
-      {/* <h2>{coor?.latitude} - {coor?.longitude}</h2> */}
       <h1 className="title">ITB Nobel</h1>
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="form_area px-3 w-[320px] gap-4">

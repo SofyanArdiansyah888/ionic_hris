@@ -14,10 +14,13 @@ import { RiwayatIzinEntity } from "../../models/RiwayatIzin.entity";
 import moment from "moment";
 import Loading from "../../components/Loading";
 import EmptyBox from "../../components/EmptyBox";
+import { Link } from "react-router-dom";
 
 const Tab2: React.FC = () => {
   const [isFilterModal, setIsFilterModal] = useState(false);
-  const [date, setDate] = useState<string | string[] | null | undefined>(moment().format('DD MMMM Y'));
+  const [date, setDate] = useState<string | string[] | null | undefined>(
+    moment().format("DD MMMM Y")
+  );
   const [user] = useLocalStorage("user");
   const history = useHistory();
 
@@ -30,7 +33,7 @@ const Tab2: React.FC = () => {
     endpoint: `riwayat-izins`,
     filter: {
       berlangsung: true,
-      date
+      date,
     },
   });
 
@@ -71,33 +74,48 @@ const Tab2: React.FC = () => {
               {payload?.data && payload.data.length > 0 ? (
                 <div className="px-6 ">
                   <ul className="max-w-md divide-y-2 divide-black">
-                    {payload?.data.map((absen) => (
-                      <li className="py-3">
-                        <div className="flex flex-col gap-3">
-                          <div className="flex-1 min-w-0">
-                            <p className="text-md font-bold text-gray-900 ">
-                              {absen.karyawan.nama_lengkap}
-                              {/* {moment(absen.tanggal).format("DD MMMM Y")} */}
-                            </p>
-                            <div>
-                              <div className="flex justify-between items-center">
-                                <p className="text-sm text-gray-500 ">
-                                  {absen.izin.nama_izin}
-                                </p>
-                                {absen.tanggal_mulai ===
-                                absen.tanggal_selesai ? (
-                                  <p className="text-xs text-black font-black">
-                                    {moment(absen.tanggal_mulai).format('DD MMM YYYY')}
+                    {payload?.data.map((aktifitas) => (
+                      <li className="py-3 cursor-pointer">
+                        <Link to={`/aktifitas/${aktifitas?.id}`}>
+                          <div className="flex flex-col gap-3">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex flex-row justify-between">
+                              <p className="text-md font-bold text-gray-900 ">
+                                {aktifitas.karyawan.nama_lengkap} 
+                              </p>
+                              <p className="text-[10px] bg-red-700 text-white p-1 rounded-md capitalize">
+                              {aktifitas.status}
+                              </p>
+                              </div>
+
+                              <div>
+                                <div className="flex justify-between items-center">
+                                  <p className="text-sm text-gray-500 ">
+                                    {aktifitas.izin.nama_izin}
                                   </p>
-                                ) : (
-                                  <p className="text-xs text-black font-black">
-                                    {moment(absen.tanggal_mulai).format('DD MMM YYYY') } - {moment(absen.tanggal_selesai).format('DD MMM YYYY')}
-                                  </p>
-                                )}
+                                  {aktifitas.tanggal_mulai ===
+                                  aktifitas.tanggal_selesai ? (
+                                    <p className="text-xs text-black font-black">
+                                      {moment(aktifitas.tanggal_mulai).format(
+                                        "DD MMM YYYY"
+                                      )}
+                                    </p>
+                                  ) : (
+                                    <p className="text-xs text-black font-black">
+                                      {moment(aktifitas.tanggal_mulai).format(
+                                        "DD MMM YYYY"
+                                      )}{" "}
+                                      -{" "}
+                                      {moment(aktifitas.tanggal_selesai).format(
+                                        "DD MMM YYYY"
+                                      )}
+                                    </p>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -112,7 +130,6 @@ const Tab2: React.FC = () => {
           isOpen={isFilterModal}
           handleCancel={() => setIsFilterModal(false)}
           handleSubmit={(filterDate) => {
-            
             setDate(moment(filterDate).format("DD MMMM Y"));
             setIsFilterModal(false);
           }}

@@ -11,6 +11,7 @@ import { useGet, usePost, usePut } from "../../../hooks/useApi";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { GetDetailPayload } from "../../../models/GenericPayload";
 import { KeluargaKaryawanEntity } from "../../../models/KeluargaKaryawan.entity";
+import NotifAlert from "../../../components/NotifAlert";
 
 const schema = yup
   .object({
@@ -169,6 +170,18 @@ const EditKeluarga: React.FC = () => {
           )}
         </IonContent>
       </IonPage>
+      <NotifAlert
+        isOpen={successAlert}
+        handleCancel={() => setSuccessAlert(false)}
+        message="Berhasil Mengedit Data Keluarga"
+        type="success"
+      />
+      <NotifAlert
+        isOpen={dangerAlert}
+        handleCancel={() => setDangerAlert(false)}
+        message="Gagal Mengedit Data Keluarga"
+        type="danger"
+      />
     </>
   );
 };

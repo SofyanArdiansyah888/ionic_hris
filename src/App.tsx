@@ -69,6 +69,7 @@ import { Geolocation } from "@capacitor/geolocation";
 import { BackgroundGeolocationPlugin } from "@capacitor-community/background-geolocation";
 import { registerPlugin } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
+import DetailAktivitas from "./pages/Aktifitas/DetailAktivitas";
 const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
   "BackgroundGeolocation"
 );
@@ -133,6 +134,16 @@ const MainTabs: React.FC = () => {
           render={() => (
             <ProtectedRoute>
               <Aktifitas />
+            </ProtectedRoute>
+          )}
+        />
+
+        <Route
+          exact
+          path="/aktifitas/:id"
+          render={() => (
+            <ProtectedRoute>
+              <DetailAktivitas />
             </ProtectedRoute>
           )}
         />
@@ -367,42 +378,40 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
-  // useEffect(() => {
-  console.info("application is running");
-  let last_location: { latitude: number; longitude: number } | undefined =
-    undefined;
-  BackgroundGeolocation.addWatcher(
-    {
-      requestPermissions: true,
-      stale: false,
-      distanceFilter: 1,
-      backgroundTitle: "Tracking You.",
-      backgroundMessage: "Cancel to prevent battery drain.",
-    },
-    function (location, error) {
-      if (error) alert(error);
-      if (location) {
-        alert(JSON.stringify(location));
-        LocalNotifications.schedule({
-          notifications: [
-            {
-              title: "Position Change",
-              body: `Latitude : ${location.latitude} Longitude : ${location.longitude}`,
-              id: 1,
-            },
-          ],
-        });
-      }
-      last_location = location || undefined;
-    }
-  ).then(function (id) {
-    console.info(id, "id of watcher");
-    setTimeout(function () {
-      BackgroundGeolocation.removeWatcher({ id });
-    }, 1000);
-  });
+  useEffect(() => {
+    console.info("application is running");
 
-  // },[])
+    BackgroundGeolocation.addWatcher(
+      {
+        requestPermissions: true,
+        stale: false,
+        distanceFilter: 1,
+        backgroundTitle: "Tracking You.",
+        backgroundMessage: "Cancel to prevent battery drain.",
+      },
+      function (location, error) {
+        if (error) alert(error);
+        if (location) {
+          alert(JSON.stringify(location));
+          LocalNotifications.schedule({
+            notifications: [
+              {
+                title: "Position Change",
+                body: `Latitude : ${location.latitude} Longitude : ${location.longitude}`,
+                id: 1,
+              },
+            ],
+          });
+        }
+        // last_location = location || undefined;
+      }
+    ).then(function (id) {
+      console.info(id, "id of watcher");
+      setTimeout(function () {
+        BackgroundGeolocation.removeWatcher({ id });
+      }, 1000);
+    });
+  }, []);
 
   // useEffect(() => {
   //   printCurrentPosition();

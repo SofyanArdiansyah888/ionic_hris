@@ -30,7 +30,7 @@ export function useGet<T>({
 
   function getData(page: number | undefined) {
     let params = new URLSearchParams();
-    
+
     if (page) {
       params.append("page", page.toString());
     }
@@ -47,16 +47,15 @@ export function useGet<T>({
       });
     }
 
-    let realEndpoint = endpoint
-    if(page || limit || search || filter){
-      realEndpoint = `${endpoint}?${params}`
+    let realEndpoint = endpoint;
+    if (page || limit || search || filter) {
+      realEndpoint = `${endpoint}?${params}`;
     }
 
-    
     return apiRequest({
       token: user?.token,
       method: "GET",
-      endpoint: realEndpoint ,
+      endpoint: realEndpoint,
     });
   }
   return useQuery<T>([name, page], () => getData(page), {
@@ -117,7 +116,11 @@ function useGenericPost<T>({
   }
   return useMutation(storeData, {
     onSuccess: (data: any) => {
-      if (name) queryClient.invalidateQueries({ queryKey: [name] });
+      if (name) {
+        const names = name.split(",");
+        names.map((name) => queryClient.invalidateQueries({ queryKey: [name] }))
+        
+      }
       if (onSuccessCallback) onSuccessCallback!(data);
     },
     onError: (error: any) => {
