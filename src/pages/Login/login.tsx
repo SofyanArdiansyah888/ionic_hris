@@ -1,11 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { usePost } from "../../hooks/useApi";
 import { UserEntity } from "../../models/User.entity";
 import { useAuth } from "../../providers/AuthProvider";
+
+// import {BackgroundGeolocationPlugin} from "@capacitor-community/background-geolocation";
+// import { registerPlugin } from "@capacitor/core";
+// const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>("BackgroundGeolocation");
+import { Geolocation } from "@capacitor/geolocation";
 const schema = yup
   .object({
     name: yup.string().required(),
@@ -45,11 +50,29 @@ export default function Login() {
   const handleLogin = (data: FormData) => {
     mutate(data);
   };
+  const [coor, setCoor] = useState<any>()
+  
+  // const printCurrentPosition = async () => {
+    
+  //   const coordinates = await Geolocation.watchPosition({
+  //     enableHighAccuracy: true,
+      
+  //   },(data) => {
+      
+  //     if(data){
+  //       alert(data?.coords)
+  //       setCoor(data?.coords)
+  //     }
+  //   })
+  // };
 
 
+
+  
 
   return (
     <div className="container-auth">
+      {/* <h2>{coor?.latitude} - {coor?.longitude}</h2> */}
       <h1 className="title">ITB Nobel</h1>
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="form_area px-3 w-[320px] gap-4">

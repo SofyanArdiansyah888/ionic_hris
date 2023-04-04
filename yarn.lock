@@ -1103,6 +1103,16 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@capacitor-community/background-geolocation@^1.2.13":
+  version "1.2.13"
+  resolved "https://registry.npmjs.org/@capacitor-community/background-geolocation/-/background-geolocation-1.2.13.tgz"
+  integrity sha512-hKJYsoKA6bBu3jv6yLLAL/3fLod809Sd+EcM7ayx00rZwTXLuTBnLjJYLfs3ewIclp465jDJKiG9asD+2PjJjQ==
+
+"@capacitor/android@4.7.1":
+  version "4.7.1"
+  resolved "https://registry.npmjs.org/@capacitor/android/-/android-4.7.1.tgz"
+  integrity sha512-WRyP50HDfZVW/xiCHh8MMFSO30AqiLVLrCmBwNsMYSldzBbhSaU06YJXU41jJjXR2yu6E3/H6r8hNU2gec4RKA==
+
 "@capacitor/app@4.1.1":
   version "4.1.1"
   resolved "https://registry.npmjs.org/@capacitor/app/-/app-4.1.1.tgz"
@@ -1131,12 +1141,17 @@
     tslib "^2.4.0"
     xml2js "^0.4.23"
 
-"@capacitor/core@^4.0.0", "@capacitor/core@4.7.1":
+"@capacitor/core@^4.0.0", "@capacitor/core@^4.7.0", "@capacitor/core@>=3.0.0", "@capacitor/core@4.7.1":
   version "4.7.1"
   resolved "https://registry.npmjs.org/@capacitor/core/-/core-4.7.1.tgz"
   integrity sha512-NZcsyPNt1avNELnKuD5OsL/O/ejQxlw9UkLUEuiptPPAEwS8WJ1gGabaEBbCb2wNA/nPfrGH+ZC2LGhlpMlLeg==
   dependencies:
     tslib "^2.1.0"
+
+"@capacitor/geolocation@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/@capacitor/geolocation/-/geolocation-4.1.0.tgz"
+  integrity sha512-hfI4MUcu1zcJPTvm0g6V3telTGwq9sCU8EnY4hFJpLedbIQeWPthCOSbFtNHAU5mVaAP1Zls3x6TsXL8TX08EA==
 
 "@capacitor/haptics@4.1.0":
   version "4.1.0"
@@ -1147,6 +1162,11 @@
   version "4.1.1"
   resolved "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-4.1.1.tgz"
   integrity sha512-fdC7u2TeG4BqwC0LnPnhOdya31C4QKdhk/8pc5lxI9X5jyYAetMCN1kEkKa7KREw4DdzXotJt27B9BXxAza6og==
+
+"@capacitor/local-notifications@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.npmjs.org/@capacitor/local-notifications/-/local-notifications-4.1.5.tgz"
+  integrity sha512-zUU4WvXxweALIDp9gBjurpwF9drLeMNe+O5tVKiUr/8PsaxB9dlv2ciuN5Seq4b+9LftOfTuzEX2PY7JkOJy1g==
 
 "@capacitor/status-bar@4.1.1":
   version "4.1.1"

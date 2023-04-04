@@ -42,7 +42,7 @@ import {
   HistoryIcon,
   HomeIcon,
 } from "lucide-react";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import Absensi from "./pages/Absensi";
 import CreateCuti from "./pages/Aktifitas/CreateCuti";
 import Gaji from "./pages/Gaji";
@@ -65,7 +65,13 @@ import CreateIzin from "./pages/Aktifitas/CreateIzin";
 import EditPendidikan from "./pages/Profil/DataPendidikan/EditPendidikan";
 import EditKeluarga from "./pages/Profil/DataKeluarga/EditKeluarga";
 import EditPelatihan from "./pages/Profil/DataPelatihan/EditPelatihan";
-
+import { Geolocation } from "@capacitor/geolocation";
+import { BackgroundGeolocationPlugin } from "@capacitor-community/background-geolocation";
+import { registerPlugin } from "@capacitor/core";
+import { LocalNotifications } from "@capacitor/local-notifications";
+const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
+  "BackgroundGeolocation"
+);
 setupIonicReact();
 
 const PagesWithoutNavBar = [
@@ -101,6 +107,7 @@ const MainTabs: React.FC = () => {
     tabButton: ``, //`font-black text-black focus:text-red-700`,
     tabLabel: `font-semibold text-xs mt-1`,
   };
+
   return (
     <IonTabs>
       <IonRouterOutlet>
@@ -360,6 +367,59 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
+  // useEffect(() => {
+  console.info("application is running");
+  let last_location: { latitude: number; longitude: number } | undefined =
+    undefined;
+  BackgroundGeolocation.addWatcher(
+    {
+      requestPermissions: true,
+      stale: false,
+      distanceFilter: 1,
+      backgroundTitle: "Tracking You.",
+      backgroundMessage: "Cancel to prevent battery drain.",
+    },
+    function (location, error) {
+      if (error) alert(error);
+      if (location) {
+        alert(JSON.stringify(location));
+        LocalNotifications.schedule({
+          notifications: [
+            {
+              title: "Position Change",
+              body: `Latitude : ${location.latitude} Longitude : ${location.longitude}`,
+              id: 1,
+            },
+          ],
+        });
+      }
+      last_location = location || undefined;
+    }
+  ).then(function (id) {
+    console.info(id, "id of watcher");
+    setTimeout(function () {
+      BackgroundGeolocation.removeWatcher({ id });
+    }, 1000);
+  });
+
+  // },[])
+
+  // useEffect(() => {
+  //   printCurrentPosition();
+  // },[])
+
+  // const printCurrentPosition = async () => {
+  //   await Geolocation.watchPosition({
+  //     enableHighAccuracy: true,
+  //   },(data) => {
+  //     setTimeout(() => {
+  //       if(data){
+  //         console.log(JSON.stringify(data.coords),'coordinate plugin non background')
+  //       }
+  //     },10000)
+
+  //   })
+  // };
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
@@ -372,5 +432,10 @@ const App: React.FC = () => {
     </AuthProvider>
   );
 };
+// const printCurrentPosition = async () => {
+//   const coordinates = await Geolocation.getCurrentPosition();
+
+//   console.log('Current position:', coordinates);
+// };
 
 export default App;

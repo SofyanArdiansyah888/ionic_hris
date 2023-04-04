@@ -14,8 +14,15 @@
 * @create RiwayatPenggajianEntity
 */
 
+import { KaryawanEntity } from "./Karyawan.entity";
+
 export interface RiwayatPenggajianEntity {
   karyawan_id: number;
+  karyawan: KaryawanEntity
+  total_tunjangan: number
+  total_potongan: number;
+  gaji_pokok: number;
+  total_gaji: number;
   periode: string;
 }
 
