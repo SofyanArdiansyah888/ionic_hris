@@ -72,6 +72,9 @@ import { LocalNotifications } from "@capacitor/local-notifications";
 import DetailAktivitas from "./pages/Aktifitas/DetailAktivitas";
 import "moment/locale/id";
 import DetailGaji from "./pages/Gaji/DetailGaji";
+import { distanceInMeters } from "./utils/distanceCalculator";
+import { useStore } from "zustand";
+import { useDistanceStore } from "./store/DistanceStore";
 const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
   "BackgroundGeolocation"
 );
@@ -390,57 +393,35 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
+  const {distance, setDistance} = useDistanceStore();
+
+  const nobelLatlng = {
+    latitude: -5.1789101,
+    longitude: 119.4390137
+  };
+  
   useEffect(() => {
-    console.info("application is running");
+    printCurrentPosition();
+  },[])
 
-    BackgroundGeolocation.addWatcher(
-      {
-        requestPermissions: true,
-        stale: false,
-        distanceFilter: 1,
-        backgroundTitle: "Tracking You.",
-        backgroundMessage: "Cancel to prevent battery drain.",
-      },
-      function (location, error) {
-        if (error) alert(error);
-        if (location) {
-          alert(JSON.stringify(location));
-          LocalNotifications.schedule({
-            notifications: [
-              {
-                title: "Position Change",
-                body: `Latitude : ${location.latitude} Longitude : ${location.longitude}`,
-                id: 1,
-              },
-            ],
-          });
-        }
-        // last_location = location || undefined;
+  const printCurrentPosition = async () => {
+    await Geolocation.watchPosition({
+      enableHighAccuracy: true,
+    },(data) => {
+      if(data){
+        const {latitude,longitude} = data.coords  
+        const distance = distanceInMeters(nobelLatlng.latitude,nobelLatlng.longitude,latitude,longitude);
+        setDistance(distance)
       }
-    ).then(function (id) {
-      console.info(id, "id of watcher");
-      setTimeout(function () {
-        BackgroundGeolocation.removeWatcher({ id });
-      }, 1000);
-    });
-  }, []);
-
-  // useEffect(() => {
-  //   printCurrentPosition();
-  // },[])
-
-  // const printCurrentPosition = async () => {
-  //   await Geolocation.watchPosition({
-  //     enableHighAccuracy: true,
-  //   },(data) => {
-  //     setTimeout(() => {
-  //       if(data){
-  //         console.log(JSON.stringify(data.coords),'coordinate plugin non background')
-  //       }
-  //     },10000)
-
-  //   })
-  // };
+      // setTimeout(() => {
+      //   if(data){
+      //     const {latitude,longitude} = data.coords  
+      //     const distance = distanceInMeters(nobelLatlng.latitude,nobelLatlng.longitude,latitude,longitude);
+      //     setDistance(distance)
+      //   }
+      // },1000)
+    })
+  };
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
@@ -453,10 +434,40 @@ const App: React.FC = () => {
     </AuthProvider>
   );
 };
-// const printCurrentPosition = async () => {
-//   const coordinates = await Geolocation.getCurrentPosition();
+// useEffect(() => {
+//   console.info("application is running");
 
-//   console.log('Current position:', coordinates);
-// };
+//   BackgroundGeolocation.addWatcher(
+//     {
+//       requestPermissions: true,
+//       stale: false,
+//       distanceFilter: 1,
+//       backgroundTitle: "Tracking You.",
+//       backgroundMessage: "Cancel to prevent battery drain.",
+//     },
+//     function (location, error) {
+//       if (error) alert(error);
+//       if (location) {
+//         alert(JSON.stringify(location));
+//         LocalNotifications.schedule({
+//           notifications: [
+//             {
+//               title: "Position Change",
+//               body: `Latitude : ${location.latitude} Longitude : ${location.longitude}`,
+//               id: 1,
+//             },
+//           ],
+//         });
+//       }
+//       // last_location = location || undefined;
+//     }
+//   ).then(function (id) {
+//     console.info(id, "id of watcher");
+//     setTimeout(function () {
+//       BackgroundGeolocation.removeWatcher({ id });
+//     }, 1000);
+//   });
+// }, []);
+
 
 export default App;

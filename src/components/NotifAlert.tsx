@@ -18,9 +18,9 @@ export default function NotifAlert({
   const AlertIcon = () => {
     switch(type){
       case 'danger' : 
-      return <MdOutlineDangerous className="text-green-300 mx-auto w-20 h-20" />
+      return <MdOutlineDangerous className="text-red-300 mx-auto w-20 h-20" />
       case 'warning' : 
-      return <MdWarning className="text-green-300 mx-auto w-20 h-20" />
+      return <MdWarning className="text-yellow-300 mx-auto w-20 h-20" />
       case 'success' : 
       return <CheckCircle2Icon className="text-green-300 mx-auto w-20 h-20" />
     }

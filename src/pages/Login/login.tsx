@@ -11,6 +11,7 @@ import { useAuth } from "../../providers/AuthProvider";
 // import { registerPlugin } from "@capacitor/core";
 // const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>("BackgroundGeolocation");
 import { Geolocation } from "@capacitor/geolocation";
+import NotifAlert from "../../components/NotifAlert";
 const schema = yup
   .object({
     name: yup.string().required(),
@@ -21,6 +22,8 @@ type FormData = yup.InferType<typeof schema>;
 
 export default function Login() {
   const auth = useAuth();
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [dangerAlert, setDangerAlert] = useState(false);
 
   const history = useHistory();
   const {
@@ -43,6 +46,8 @@ export default function Login() {
     onErrorCallback: (error: any) => {
       if (error.response.status == 422) {
         setError("name", { message: error.response?.data.errors.name[0] });
+      }else{
+        setDangerAlert(true)
       }
     },
   });
@@ -53,6 +58,7 @@ export default function Login() {
 
 
   return (
+    <>
     <div className="container-auth">
       <h1 className="title">ITB Nobel</h1>
       <form onSubmit={handleSubmit(handleLogin)}>
@@ -84,5 +90,18 @@ export default function Login() {
         </div>
       </form>
     </div>
+    <NotifAlert
+        isOpen={successAlert}
+        handleCancel={() => setSuccessAlert(false)}
+        message="Berhasil Login"
+        type="success"
+      />
+      <NotifAlert
+        isOpen={dangerAlert}
+        handleCancel={() => setDangerAlert(false)}
+        message="Server tidak merespon !"
+        type="danger"
+      />
+    </>
   );
 }
