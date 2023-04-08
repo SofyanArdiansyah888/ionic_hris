@@ -20,7 +20,7 @@ const Tab1: React.FC = () => {
 
   const { data, isFetching } = useGet<GetDetailPayload<KaryawanEntity>>({
     name: "karyawan",
-    endpoint: `karyawans/${user?.karyawan.id}`,
+    endpoint: `karyawans/${user?.karyawan?.id}`,
   });
 
   const { mutate, isLoading: isAbsenLoading } = usePut({

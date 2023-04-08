@@ -64,7 +64,10 @@ const Profil: React.FC = () => {
     {
       text: "Keluar",
       icon: <CiLogout className="w-6 h-6 text-red-700 p-1" />,
-      handleClick: () => auth.logout(),
+      handleClick: () => {
+        auth.logout()
+        window.location.reload()
+      },
     },
   ];
   return (
