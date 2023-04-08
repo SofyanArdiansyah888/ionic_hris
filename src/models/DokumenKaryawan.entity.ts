@@ -14,5 +14,7 @@ export interface DokumenKaryawanEntity {
   nama_dokumen: string;
   link_file: string;
   karyawan_id: number;
+  gLink: string;
+  created_at: string;
 }
 

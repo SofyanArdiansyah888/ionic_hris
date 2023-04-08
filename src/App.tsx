@@ -75,6 +75,7 @@ import DetailGaji from "./pages/Gaji/DetailGaji";
 import { distanceInMeters } from "./utils/distanceCalculator";
 import { useStore } from "zustand";
 import { useDistanceStore } from "./store/DistanceStore";
+import CreateDokumen from "./pages/Profil/DataDokumen/CreateDokumen";
 const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
   "BackgroundGeolocation"
 );
@@ -88,6 +89,7 @@ const PagesWithoutNavBar = [
   "/data-pendidikan",
   "/data-pelatihan",
   "/data-dokumen",
+  "/create-dokumen",
   "/data-rekening",
   "/create-aktivitas",
   "/edit-aktivitas",
@@ -264,6 +266,16 @@ const MainTabs: React.FC = () => {
 
         <Route
           exact
+          path="/create-dokumen"
+          render={() => (
+            <ProtectedRoute>
+              <CreateDokumen />
+            </ProtectedRoute>
+          )}
+        />
+
+        <Route
+          exact
           path="/data-pendidikan"
           render={() => (
             <ProtectedRoute>
@@ -393,34 +405,42 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
-  const {distance, setDistance} = useDistanceStore();
+  const { distance, setDistance } = useDistanceStore();
 
   const nobelLatlng = {
     latitude: -5.1789101,
-    longitude: 119.4390137
+    longitude: 119.4390137,
   };
-  
+
   useEffect(() => {
     printCurrentPosition();
-  },[])
+  }, []);
 
   const printCurrentPosition = async () => {
-    await Geolocation.watchPosition({
-      enableHighAccuracy: true,
-    },(data) => {
-      if(data){
-        const {latitude,longitude} = data.coords  
-        const distance = distanceInMeters(nobelLatlng.latitude,nobelLatlng.longitude,latitude,longitude);
-        setDistance(distance)
+    await Geolocation.watchPosition(
+      {
+        enableHighAccuracy: true,
+      },
+      (data) => {
+        if (data) {
+          const { latitude, longitude } = data.coords;
+          const distance = distanceInMeters(
+            nobelLatlng.latitude,
+            nobelLatlng.longitude,
+            latitude,
+            longitude
+          );
+          setDistance(distance);
+        }
+        // setTimeout(() => {
+        //   if(data){
+        //     const {latitude,longitude} = data.coords
+        //     const distance = distanceInMeters(nobelLatlng.latitude,nobelLatlng.longitude,latitude,longitude);
+        //     setDistance(distance)
+        //   }
+        // },1000)
       }
-      // setTimeout(() => {
-      //   if(data){
-      //     const {latitude,longitude} = data.coords  
-      //     const distance = distanceInMeters(nobelLatlng.latitude,nobelLatlng.longitude,latitude,longitude);
-      //     setDistance(distance)
-      //   }
-      // },1000)
-    })
+    );
   };
   return (
     <AuthProvider>
@@ -468,6 +488,5 @@ const App: React.FC = () => {
 //     }, 1000);
 //   });
 // }, []);
-
 
 export default App;
