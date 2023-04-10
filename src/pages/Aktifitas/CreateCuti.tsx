@@ -72,6 +72,7 @@ export default function CreateCuti() {
     endpoint: `karyawans/${user?.karyawan?.id}/izins/${izinWatch}`,
     retry: false
   });
+  
   useEffect(() => {
     if (izinWatch) {
       refetchKaryawanIzin();

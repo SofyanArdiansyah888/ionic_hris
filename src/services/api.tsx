@@ -49,6 +49,7 @@ export function uploadRequest({
   
   const config: AxiosRequestConfig = {
     method,
+    data,
     url: `${process.env.REACT_APP_BASE_URL}${endpoint}`,
     headers: {
       'Content-Type': 'multipart/form-data',    
@@ -60,9 +61,9 @@ export function uploadRequest({
     config.headers!.Authorization = `Bearer ${token}`;
   }
 
-  if (data) {
-    config.data = JSON.stringify(data);
-  }
+  // if (data) {
+  //   config.data = JSON.stringify(data);
+  // }
 
   return new Promise(async (resolve, reject) => {
     try {

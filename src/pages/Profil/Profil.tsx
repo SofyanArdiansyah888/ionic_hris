@@ -1,6 +1,6 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { ArrowRightCircleIcon, LockIcon } from "lucide-react";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { CiLogout } from "react-icons/ci";
 import { HiOutlineDocument, HiOutlineWallet } from "react-icons/hi2/index";
 import {
@@ -10,7 +10,7 @@ import {
   MdOutlineSchool,
 } from "react-icons/md/index";
 import { useHistory } from "react-router";
-import { useGet } from "../../hooks/useApi";
+import { useGet, useUploadPost } from "../../hooks/useApi";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GetDetailPayload } from "../../models/GenericPayload";
 import { KaryawanEntity } from "../../models/Karyawan.entity";
@@ -24,6 +24,9 @@ const Profil: React.FC = () => {
     endpoint: `karyawans/${user?.karyawan.id}`,
   });
   const [image, setImage] = useState<any>("");
+  useEffect(()=>{
+    setImage(data?.data.foto)
+  },[data])
 
   const menus: IList[] = [
     {
@@ -72,6 +75,11 @@ const Profil: React.FC = () => {
     },
   ];
 
+  const {mutate} = useUploadPost({
+    name:'karyawan',
+    endpoint:'upload-foto'
+  })
+
   const handleImageChange = (e: any) => {
     const selectedImage = e.target.files[0];
     const reader = new FileReader();
@@ -81,8 +89,12 @@ const Profil: React.FC = () => {
         setImage(reader.result);
       }
     };
-
     reader.readAsDataURL(selectedImage);
+
+    const formData = new FormData();
+    formData.append('file', selectedImage);
+    formData.append('karyawan_id',user?.karyawan?.id)
+    mutate(formData)
   };
   return (
     <IonPage>
@@ -94,7 +106,7 @@ const Profil: React.FC = () => {
                 <img
                   src={image}
                   alt="Gambar Profil"
-                  className="rounded-full w-24 h-24 border-4 border-slate-900  "
+                  className="rounded-full w-24 h-24 border-4 border-slate-900  object-cover "
                 ></img>
                 <input
                   type="file"

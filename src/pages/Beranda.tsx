@@ -14,7 +14,7 @@ const Tab1: React.FC = () => {
   const distance = useDistanceStore((state) => state.distance);
   const [successAlert, setSuccessAlert] = useState(false);
   const [dangerAlert, setDangerAlert] = useState(false);
-
+  const [imageProfil, setImageProfil] = useState<string>()
   const [user] = useLocalStorage("user");
   const [time, setTime] = useState<string>();
 
@@ -22,6 +22,12 @@ const Tab1: React.FC = () => {
     name: "karyawan",
     endpoint: `karyawans/${user?.karyawan?.id}`,
   });
+
+  useEffect(() => {
+    if(data){
+      setImageProfil(data?.data?.foto);
+    }
+  },[data])
 
   const { mutate, isLoading: isAbsenLoading } = usePut({
     name: "do-absen",
@@ -49,15 +55,13 @@ const Tab1: React.FC = () => {
             <div className="px-6 py-8 text-2xl font-bold">HRIS NOBEL</div>
 
             <div className="flex flex-col pt-6 px-6 items-center w-full gap-4">
-              <div className="bg-slate-300 w-48 h-48 rounded-full border-4 border-slate-900">
+              {/* <div className="bg-slate-300 w-48 h-48 rounded-full border-4 border-slate-900"> */}
                 <img
-                  src="https://i.pravatar.cc/300"
-                  width="100%"
-                  height="100%"
+                  src={imageProfil}
                   alt="Gambar Profil"
-                  className="rounded-full"
+                  className=" w-48 h-48 rounded-full border-4 border-slate-900 object-cover "
                 ></img>
-              </div>
+              {/* </div> */}
               {/* HEADER TEXT */}
               <div className="text-center">
                 {/* <h4 className="text-sm text-slate-500 my-0">Welcome Back,</h4> */}
