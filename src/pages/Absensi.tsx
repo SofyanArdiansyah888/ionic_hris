@@ -51,7 +51,7 @@ const Absensi: React.FC = () => {
           <>
             {payload?.data && payload.data.length > 0 ? (
               <div className="px-6 ">
-                <ul className="max-w-md divide-y-2 divide-black">
+                <ul className="max-w-md divide-y-2 divide-zinc-300">
                   {payload?.data.map((absen) => (
                     <li className="py-3">
                       <div className="flex flex-col gap-3">

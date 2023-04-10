@@ -127,7 +127,7 @@ const Profil: React.FC = () => {
               </h4>
             </div>
           </div>
-          <ul className="max-w-md divide-y-2 divide-zinc mb-4 ">
+          <ul className="max-w-md divide-y-2 divide-zinc-300 mb-4 ">
             {menus.map((props, index) => (
               <List {...props} key={index} />
             ))}

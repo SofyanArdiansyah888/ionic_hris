@@ -57,7 +57,7 @@ const DataKeluarga: React.FC = () => {
           <>
             {payload?.data && payload?.data?.keluarga_karyawans?.length > 0 ? (
               <div className="px-6 mt-4 divide-y-2  ">
-                <ul className="max-w-md divide-y-2 divide-black">
+                <ul className="max-w-md divide-y-2 divide-zinc-300">
                   {payload?.data?.keluarga_karyawans?.map((keluarga, index) => (
                     <li className="py-3" key={index}>
                       <div className="flex flex-row justify-between items-center">

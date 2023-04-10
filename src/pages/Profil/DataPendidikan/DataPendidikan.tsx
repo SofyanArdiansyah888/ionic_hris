@@ -47,7 +47,7 @@ const DataPendidikan: React.FC = () => {
           <Loading />
         ) : (
           <div className="px-6 mt-4 divide-y-2  ">
-            <ul className="max-w-md divide-y-2 divide-black">
+            <ul className="max-w-md divide-y-2 divide-zinc-300">
               {payload?.data?.pendidikan_karyawans?.map((pendidikan, index) => (
                 <li key={index} className="py-3 cursor-pointer">
                   <div className="text-xs font-semibold text-gray-900 flex gap-3 items-center w-full ">

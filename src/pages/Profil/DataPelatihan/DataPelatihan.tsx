@@ -58,7 +58,7 @@ const DataPelatihan: React.FC = () => {
             {payload?.data &&
             payload?.data?.riwayat_training_karyawans?.length > 0 ? (
               <div className="px-6 mt-4 divide-y-2  ">
-                <ul className="max-w-md divide-y-2 divide-black">
+                <ul className="max-w-md divide-y-2 divide-zinc-300">
                   {payload?.data?.riwayat_training_karyawans?.map(
                     (pelatihan, index) => (
                       <li key={index} className="py-3 cursor-pointer">

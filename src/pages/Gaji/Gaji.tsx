@@ -63,7 +63,7 @@ const Gaji: React.FC = () => {
             <>
               {payload?.data && payload.data.length > 0 ? (
                 <div className="px-6 ">
-                  <div className="max-w-md  divide-black">
+                  <div className="max-w-md  divide-zinc-300">
                     {payload?.data.map((riwayat) => (
                       <Link to={`/gaji/${riwayat.id}`}>
                         <div className="flex flex-col gap-3">

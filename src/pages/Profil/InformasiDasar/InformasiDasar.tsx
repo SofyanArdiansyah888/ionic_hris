@@ -24,7 +24,7 @@ const InformasiDasar: React.FC = () => {
 
       <IonContent fullscreen>
         <div className="px-6 mt-4 divide-y-2  ">
-          <ul className="max-w-md divide-y-2 divide-black">
+          <ul className="max-w-md divide-y-2 divide-zinc-300">
             {[1, 2, 3, 1, 1, 1, 1, 1, 1, 1].map(() => (
               <li className="py-3">
                 <div className="flex flex-row justify-between items-center">
