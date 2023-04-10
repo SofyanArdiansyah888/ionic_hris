@@ -23,6 +23,7 @@ const Profil: React.FC = () => {
     name: "karyawan",
     endpoint: `karyawans/${user?.karyawan.id}`,
   });
+  const [image, setImage] = useState<any>("");
 
   const menus: IList[] = [
     {
@@ -65,24 +66,43 @@ const Profil: React.FC = () => {
       text: "Keluar",
       icon: <CiLogout className="w-6 h-6 text-red-700 p-1" />,
       handleClick: () => {
-        auth.logout()
-        window.location.reload()
+        auth.logout();
+        window.location.reload();
       },
     },
   ];
+
+  const handleImageChange = (e: any) => {
+    const selectedImage = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(selectedImage);
+  };
   return (
     <IonPage>
       <IonContent fullscreen>
         <div className="px-8 ">
           <div className="flex flex-row items-center w-full gap-8 my-10">
-            <div className="bg-slate-300 w-24 h-24 rounded-full border-4 border-slate-900">
-              <img
-                src="https://i.pravatar.cc/300"
-                width="100%"
-                height="100%"
-                alt="Gambar Profil"
-                className="rounded-full"
-              ></img>
+            <div className="bg-slate-300 w-26 h-26 rounded-full  ">
+              <label>
+                <img
+                  src={image}
+                  alt="Gambar Profil"
+                  className="rounded-full w-24 h-24 border-4 border-slate-900  "
+                ></img>
+                <input
+                  type="file"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  className="hidden"
+                />
+              </label>
             </div>
             {/* HEADER TEXT */}
             <div className="text-left">

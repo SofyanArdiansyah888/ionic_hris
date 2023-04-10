@@ -13,6 +13,7 @@ interface IGet<T> {
   limit?: number;
   search?: string;
   filter?: object;
+  retry?: boolean;
 }
 
 export function useGet<T>({
@@ -24,10 +25,10 @@ export function useGet<T>({
   limit,
   search,
   filter,
+  retry,
 }: IGet<T>) {
   const navigate = useHistory();
   const [user] = useLocalStorage("user");
-
   function getData(page: number | undefined) {
     let params = new URLSearchParams();
 
@@ -68,6 +69,7 @@ export function useGet<T>({
       // } else if (error?.response?.status === 401) navigate("/401");
     },
     keepPreviousData: false,
+    retry
     // enabled:Boolean(filter)
   });
 }

@@ -1,26 +1,38 @@
-import { IonAlert, IonContent, IonPage } from "@ionic/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { IonContent, IonPage } from "@ionic/react";
+import moment from "moment";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
+import * as yup from "yup";
 import KembaliHeader from "../../components/KembaliHeader";
+import LabelError from "../../components/LabelError";
+import NotifAlert from "../../components/NotifAlert";
 import { useGet, usePost } from "../../hooks/useApi";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GetPayload } from "../../models/GenericPayload";
 import { IzinEntity } from "../../models/Izin.entity";
-import * as yup from "yup";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import LabelError from "../../components/LabelError";
-import { CheckCircle2Icon } from "lucide-react";
-import NotifAlert from "../../components/NotifAlert";
+import Dropzone from "../../components/Dropzone";
 
 const schema = yup
   .object({
     izin_id: yup.string().required(),
-    nama_file: yup.string().notRequired(),
     tanggal_mulai: yup.string().required(),
     tanggal_selesai: yup.string().required(),
     keterangan: yup.string().required(),
     telepon: yup.string().required(),
+    nama_file: yup.string().when(['tanggal_mulai','tanggal_selesai'],{
+      is: (tanggal_mulai: string, tanggal_selesai:string) => {
+        let diff = 0;
+        if(tanggal_mulai && tanggal_selesai){
+          diff = moment(tanggal_selesai).diff(tanggal_mulai,'days');
+        }
+        return diff > 2
+      },
+      then() {
+        return yup.string().required()
+      },
+    })
   })
   .required();
 type FormData = yup.InferType<typeof schema>;
@@ -34,6 +46,7 @@ export default function CreateIzin() {
     formState: { errors },
     handleSubmit,
     reset,
+    setValue
   } = useForm<FormData>({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -127,6 +140,38 @@ export default function CreateIzin() {
                   />
                   <LabelError errorMessage={errors.keterangan?.message} />
                 </div>
+
+
+                <div className="form_group">
+                  <label className="text-sm">File</label>
+                  <Dropzone
+                    options={{
+                      url: `${process.env.REACT_APP_BASE_URL}upload-izin`,
+                      acceptedFiles: "image/jpeg,image/png,image/gif,image/jpg",
+                      // maxFilesize: 2,
+                      maxFiles: 1,
+                      headers: {
+                        Authorization: `Bearer ${user?.token}`,
+                      },
+                      addRemoveLinks: true,
+                      success: (file:any) => {
+                        setValue(
+                          "nama_file",
+                          file.xhr?.response.replace(/^"|"$/g, "")
+                        );
+                      },
+                      removedfile: (file) => {
+                        file.previewElement.remove();
+                        setValue("nama_file", "");
+                      },
+                    }}
+                    className="dropzone w-full"
+                  >
+                    <div className="text-md font-medium ">Upload Dokumen</div>
+                    {/* <div className="text-gray-600">Maximal 2 Mb</div> */}
+                  </Dropzone>
+                  <LabelError errorMessage={errors.nama_file?.message} />
+                </div>
               </div>
 
               <button
@@ -150,3 +195,5 @@ export default function CreateIzin() {
     </>
   );
 }
+
+

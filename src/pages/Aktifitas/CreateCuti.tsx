@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IonContent, IonPage } from "@ionic/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import * as yup from "yup";
@@ -9,14 +9,17 @@ import LabelError from "../../components/LabelError";
 import NotifAlert from "../../components/NotifAlert";
 import { useGet, usePost } from "../../hooks/useApi";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { GetPayload } from "../../models/GenericPayload";
+import { GetDetailPayload, GetPayload } from "../../models/GenericPayload";
 import { IzinEntity } from "../../models/Izin.entity";
+import { IzinKaryawanEntity } from "../../models/IzinKaryawan.entity";
+import moment from "moment";
 
 const schema = yup
   .object({
     izin_id: yup.string().required(),
     nama_file: yup.string().notRequired(),
     tanggal_mulai: yup.string().required(),
+    sisa_cuti: yup.number().nullable(),
     tanggal_selesai: yup.string().required(),
     keterangan: yup.string().required(),
     telepon: yup.string().required(),
@@ -28,15 +31,21 @@ export default function CreateCuti() {
   const history = useHistory();
   const [user] = useLocalStorage("user");
   const [showAlert, setShowAlert] = useState(false);
+  const [dangerAlert, setDangerAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
+    watch,
+    setValue,
   } = useForm<FormData>({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+  const sisaCuti = watch("sisa_cuti");
+  const izinWatch = watch("izin_id");
   const { data: payloadCuti } = useGet<GetPayload<IzinEntity>>({
     name: "cutis",
     endpoint: "izins",
@@ -50,17 +59,54 @@ export default function CreateCuti() {
     name: "riwayat-izins",
     endpoint: "riwayat-izins",
     onSuccessCallback: () => {
-        setShowAlert(true)
-        history.push('/aktifitas')
-        reset();
-    }
+      setShowAlert(true);
+      history.push("/aktifitas");
+      reset();
+    },
   });
 
+  const { data: karyawanIzinPayload, refetch: refetchKaryawanIzin } = useGet<
+    GetDetailPayload<IzinKaryawanEntity>
+  >({
+    name: "karyawan-izins",
+    endpoint: `karyawans/${user?.karyawan?.id}/izins/${izinWatch}`,
+    retry: false
+  });
+  useEffect(() => {
+    if (izinWatch) {
+      refetchKaryawanIzin();
+    }
+  }, [izinWatch]);
+
+  useEffect(() => {
+    setValue('telepon',user?.karyawan?.telepon)
+  },[])
+
+  useEffect(() => {
+    if (!karyawanIzinPayload?.data) {
+      setValue("sisa_cuti", 0);
+    } else {
+      setValue("sisa_cuti", karyawanIzinPayload?.data?.sisa_quota);
+    }
+  }, [karyawanIzinPayload]);
+
   const handleCreateCuti = (data: FormData) => {
-    mutate({
-      ...data,
-      karyawan_id: user?.karyawan?.id,
-    });
+    let diff = 0;
+    let { tanggal_mulai, tanggal_selesai } = data;
+    diff = moment(tanggal_selesai).diff(tanggal_mulai, "days");
+    diff += 1
+    if (sisaCuti !== null && sisaCuti !== undefined) {
+      if (diff > sisaCuti) {
+        setErrorMessage("Jumlah cuti tidak mencukupi!");
+        setDangerAlert(true);
+      } else {
+        const {sisa_cuti, ...formData} = data;
+        mutate({
+          ...formData,
+          karyawan_id: user?.karyawan?.id,
+        });
+      }
+    }
   };
 
   return (
@@ -81,11 +127,25 @@ export default function CreateCuti() {
                     className="form_style w-full"
                     {...register("izin_id")}
                   >
-                    {payloadCuti?.data.map((izin,index) => (
-                      <option value={izin.id} key={index}>{izin.nama_izin}</option>
+                    <option value="">Pilih Cuti</option>
+                    {payloadCuti?.data.map((izin, index) => (
+                      <option value={izin.id} key={index}>
+                        {izin.nama_izin}
+                      </option>
                     ))}
                   </select>
                   <LabelError errorMessage={errors.izin_id?.message} />
+                </div>
+
+                <div className="form_group">
+                  <label className="text-sm">Sisa Cuti</label>
+                  <input
+                    type="text"
+                    className="form_style w-full"
+                    {...register("sisa_cuti")}
+                    disabled
+                  />
+                  <LabelError errorMessage={errors.sisa_cuti?.message} />
                 </div>
 
                 <div className="form_group">
@@ -142,9 +202,15 @@ export default function CreateCuti() {
 
       <NotifAlert
         isOpen={showAlert}
-        handleCancel={() => setShowAlert(false) }
-        message="Berhasil Membuat Cuti Baru"
+        handleCancel={() => setShowAlert(false)}
+        message="Berhasil Membuat Cuti"
         type="success"
+      />
+      <NotifAlert
+        isOpen={dangerAlert}
+        handleCancel={() => setDangerAlert(false)}
+        message={errorMessage}
+        type="warning"
       />
     </>
   );

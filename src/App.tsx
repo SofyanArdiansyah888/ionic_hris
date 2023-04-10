@@ -97,6 +97,8 @@ const PagesWithoutNavBar = [
   "/edit-pendidikan",
   "/create-pelatihan",
   "/edit-pelatihan",
+  '/create-cuti',
+  '/create-izin'
 ];
 const MainTabs: React.FC = () => {
   const location = useLocation();
