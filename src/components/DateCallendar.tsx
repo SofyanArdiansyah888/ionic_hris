@@ -36,12 +36,12 @@ export default function DateCallendar({
               presentation={presentation}
               preferWheel={true}
               onIonChange={(e) => setDate(e.detail.value)}
-              className="text-xs"
+              className="text-xs mx-auto"
               size="cover"
             />
           
 
-          <div className="modal-action mt-0">
+          <div className="modal-action mt-4">
             <button className="btn btn-outline" onClick={handleCancel}>
               Cancel
             </button>

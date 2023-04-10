@@ -9,10 +9,19 @@ import { useGet } from "../../../hooks/useApi";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { GetDetailPayload } from "../../../models/GenericPayload";
 import { KaryawanEntity } from "../../../models/Karyawan.entity";
+import DeleteAlert from "../../../components/DeleteAlert";
+import NotifAlert from "../../../components/NotifAlert";
+import { useState } from "react";
+import { RiwayatTrainingKaryawanEntity } from "../../../models/RiwayatTrainingKaryawan.entity";
+import EmptyBox from "../../../components/EmptyBox";
 
 const DataPelatihan: React.FC = () => {
   const history = useHistory();
   const [user] = useLocalStorage("user");
+  const [isDelete, setIsdelete] = useState<boolean>(false);
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [selectedItem, setSelectedItem] =
+    useState<RiwayatTrainingKaryawanEntity>();
 
   const { data: payload, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>(
     {
@@ -33,6 +42,7 @@ const DataPelatihan: React.FC = () => {
               }}
             />
             <ArrowLeftCircle
+              strokeWidth={1}
               className="w-8 h-8 cursor-pointer"
               onClick={() => history.push("/profil")}
             />
@@ -44,34 +54,66 @@ const DataPelatihan: React.FC = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <div className="px-6 mt-4 divide-y-2  ">
-            <ul className="max-w-md divide-y-2 divide-black">
-              {payload?.data?.riwayat_training_karyawans?.map(
-                (pelatihan, index) => (
-                  <li key={index} className="py-3 cursor-pointer">
-                    <div className="text-xs font-bold text-gray-900 flex gap-3 items-center w-full ">
-                      <CircleShadowButton
-                        icon={
-                          <Trash2Icon className="w-6 h-6 p-1 text-red-700" />
-                        }
-                      />
+          <>
+            {payload?.data &&
+            payload?.data?.riwayat_training_karyawans?.length > 0 ? (
+              <div className="px-6 mt-4 divide-y-2  ">
+                <ul className="max-w-md divide-y-2 divide-black">
+                  {payload?.data?.riwayat_training_karyawans?.map(
+                    (pelatihan, index) => (
+                      <li key={index} className="py-3 cursor-pointer">
+                        <div className="text-xs font-semibold text-gray-900 flex gap-3 items-center w-full ">
+                          <CircleShadowButton
+                            icon={
+                              <Trash2Icon
+                                className="w-6 h-6 p-1 text-red-700"
+                                onClick={() => {
+                                  setSelectedItem(pelatihan);
+                                  setIsdelete(true);
+                                }}
+                              />
+                            }
+                          />
 
-                      <div className="flex-1">
-                        <Link to={`/data-pelatihan/${pelatihan.id}`}>
-                          <p>{pelatihan.nama_kegiatan}</p>
-                          <p className="text-xs text-slate-500 font-light ">
-                            {pelatihan.tahun}
-                          </p>
-                        </Link>
-                      </div>
-                    </div>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
+                          <div className="flex-1">
+                            <Link to={`/data-pelatihan/${pelatihan.id}`}>
+                              <p>{pelatihan.nama_kegiatan}</p>
+                              <p className="text-xs text-slate-500 font-light ">
+                                {pelatihan.tahun}
+                              </p>
+                            </Link>
+                          </div>
+                        </div>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+            ) : (
+              <EmptyBox />
+            )}
+          </>
         )}
       </IonContent>
+      <DeleteAlert
+        isOpen={isDelete}
+        handleCancel={() => setIsdelete(false)}
+        message={`Apakah kamu yakin ingin menghapus data ${selectedItem?.nama_kegiatan} `}
+        deleteProps={{
+          name: "karyawan",
+          endpoint: `riwayat-training-karyawans/${selectedItem?.id}`,
+          onSuccessCallback: () => {
+            setIsdelete(false);
+            setSuccessAlert(true);
+          },
+        }}
+      />
+      <NotifAlert
+        isOpen={successAlert}
+        handleCancel={() => setSuccessAlert(false)}
+        message="Berhasil Menghapus Data Keluarga"
+        type="success"
+      />
     </IonPage>
   );
 };

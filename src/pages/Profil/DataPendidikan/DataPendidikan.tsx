@@ -34,8 +34,9 @@ const DataPendidikan: React.FC = () => {
               }}
             />
             <ArrowLeftCircle
+              strokeWidth={1}
               className="w-8 h-8 cursor-pointer"
-              onClick={() => history.push('/profil')}
+              onClick={() => history.push("/profil")}
             />
           </div>
         }
@@ -49,7 +50,7 @@ const DataPendidikan: React.FC = () => {
             <ul className="max-w-md divide-y-2 divide-black">
               {payload?.data?.pendidikan_karyawans?.map((pendidikan, index) => (
                 <li key={index} className="py-3 cursor-pointer">
-                  <div className="text-xs font-bold text-gray-900 flex gap-3 items-center w-full ">
+                  <div className="text-xs font-semibold text-gray-900 flex gap-3 items-center w-full ">
                     <CircleShadowButton
                       icon={<Trash2Icon className="w-6 h-6 p-1 text-red-700" />}
                     />

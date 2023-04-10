@@ -41,10 +41,10 @@ export default function Login() {
     name: "login",
     onSuccessCallback: (data: UserEntity) => {
       auth.login(data);
-      // history.push("/beranda");
     },
     onErrorCallback: (error: any) => {
-      if (error.response.status == 422) {
+ 
+      if (error.response.status === 422) {
         setError("name", { message: error.response?.data.errors.name[0] });
       }else{
         setDangerAlert(true)
@@ -59,29 +59,35 @@ export default function Login() {
 
   return (
     <>
-    <div className="container-auth">
-      <h1 className="title">ITB Nobel</h1>
+    <div className="container-auth relative">
+      {/* <div className="absolute right-[-250px]  -z-10">
+          <img src={"assets/logo.png"} className="w-[500px] h-[500px] opacity-10" alt="Logo Nobel" />  
+      </div> */}
+      <img src={"assets/logo.png"} className="w-40 h-40 " alt="Logo Nobel" />
+      <h1 className="title font-semibold">ITB Nobel</h1>
       <form onSubmit={handleSubmit(handleLogin)}>
-        <div className="form_area px-3 w-[320px] gap-4">
-          <h3 className="flex justify-start w-full ml-4 my-4 font-semibold text-2xl  ">
+        <div className="form_area px-3 w-[320px] gap-6">
+          <h3 className="flex justify-start w-full   font-semibold text-xl  ">
             Login
           </h3>
           <div className="form_group ">
             <label>Username</label>
-            <input className="form_style w-full" {...register("name")} />
+            <input className="form_style w-full mt-2" {...register("name")}  />
+            <small className="text-xs text-red-700 mt-2 font-semibold pl-4">{errors.name?.message}</small>
           </div>
 
           <div className="form_group">
             <label>Password</label>
             <input
-              className="form_style w-full "
+              className="form_style w-full mt-2"
               type="password"
               {...register("password")}
             />
+            <small className="text-xs text-red-700 mt-2 font-semibold pl-4">{errors.password?.message}</small>
           </div>
 
           <button
-            className="btn bg-red-600 w-full my-4"
+            className="btn bg-red-600 border-red-600 w-full my-4"
             type="submit"
             disabled={isLoading}
           >

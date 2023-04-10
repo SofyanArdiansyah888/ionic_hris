@@ -106,7 +106,7 @@ const Profil: React.FC = () => {
                 <img
                   src={image}
                   alt="Gambar Profil"
-                  className="rounded-full w-24 h-24 border-4 border-slate-900  object-cover "
+                  className="rounded-full w-24 h-24 border-2 border-slate-900  object-cover "
                 ></img>
                 <input
                   type="file"
@@ -119,7 +119,7 @@ const Profil: React.FC = () => {
             {/* HEADER TEXT */}
             <div className="text-left">
               {/* <h4 className="text-sm text-slate-500 my-0">Welcome Back,</h4> */}
-              <h1 className="text-xl mt-1 mb-0 font-bold capitalize">
+              <h1 className="text-xl mt-1 mb-0 font-semibold capitalize">
                 {data?.data.nama_lengkap}
               </h1>
               <h4 className="text-sm text-slate-500 mt-1 capitalize">
@@ -127,7 +127,7 @@ const Profil: React.FC = () => {
               </h4>
             </div>
           </div>
-          <ul className="max-w-md divide-y-2 divide-black mb-4 ">
+          <ul className="max-w-md divide-y-2 divide-zinc mb-4 ">
             {menus.map((props, index) => (
               <List {...props} key={index} />
             ))}
@@ -151,13 +151,13 @@ function List({ icon, text, handleClick }: IList) {
         onClick={handleClick}
       >
         <div className="flex gap-8 items-center">
-          <div className="rounded-full p-1 border border-b-2 border-r-4 border-black  shadow-[5px_5px_0px_0px_#000] ">
+          <div className="rounded-full p-1 border  border-zinc  ">
             {icon}
           </div>
-          <div className="text-sm  font-bold">{text}</div>
+          <div className="text-sm  font-semibold">{text}</div>
         </div>
 
-        <div className="rounded-full p-1 border border-b-2 border-r-4 border-black  shadow-[5px_5px_0px_0px_#000] ">
+        <div className="rounded-full p-1 border  border-zinc ">
           <ArrowRightCircleIcon className="w-6 h-6 text-red-700" />
         </div>
       </div>

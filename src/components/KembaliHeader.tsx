@@ -16,7 +16,7 @@ export default function KembaliHeader({
         className="flex flex-row items-center gap-2 cursor-pointer"
         onClick={handleKembali}
       >
-        <ArrowLeftCircle className="h-8 w-8" />
+        <ArrowLeftCircle className="h-8 w-8" strokeWidth={1} />
         Kembali
       </div>
       {rightIcon}

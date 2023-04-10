@@ -10,11 +10,17 @@ import { useGet } from "../../../hooks/useApi";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { GetDetailPayload } from "../../../models/GenericPayload";
 import { KaryawanEntity } from "../../../models/Karyawan.entity";
+import DeleteAlert from "../../../components/DeleteAlert";
+import NotifAlert from "../../../components/NotifAlert";
+import { useState } from "react";
+import { DokumenKaryawanEntity } from "../../../models/DokumenKaryawan.entity";
 
 const DataDokumen: React.FC = () => {
   const history = useHistory();
   const [user] = useLocalStorage("user");
-
+  const [isDelete, setIsdelete] = useState<boolean>(false);
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<DokumenKaryawanEntity>();
   const { data: payload, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>(
     {
       name: "karyawan",
@@ -34,6 +40,7 @@ const DataDokumen: React.FC = () => {
             />
             <ArrowLeftCircle
               className="w-8 h-8 cursor-pointer"
+              strokeWidth={1}
               onClick={() => history.goBack()}
             />
           </div>
@@ -48,13 +55,19 @@ const DataDokumen: React.FC = () => {
             {payload?.data && payload?.data.dokumen_karyawans.length > 0 ? (
               <div className="px-6 mt-4 divide-y-2  ">
                 <ul className="max-w-md divide-y-2 divide-black">
-                  {payload?.data.dokumen_karyawans.map((dokumen) => (
-                    <li className="py-3">
+                  {payload?.data.dokumen_karyawans.map((dokumen, index) => (
+                    <li className="py-3" key={index}>
                       <div className="flex flex-row justify-between items-center ">
-                        <div className="text-xs font-bold text-gray-900 flex gap-3 items-center w-full">
+                        <div className="text-xs font-semibold text-gray-900 flex gap-3 items-center w-full">
                           <CircleShadowButton
                             icon={
-                              <Trash2Icon className="w-6 h-6 p-1 text-red-700" />
+                              <Trash2Icon
+                                className="w-6 h-6 p-1 text-red-700"
+                                onClick={() => {
+                                  setSelectedItem(dokumen);
+                                  setIsdelete(true);
+                                }}
+                              />
                             }
                           />
                           <div className="w-full cursor-pointer">
@@ -79,6 +92,25 @@ const DataDokumen: React.FC = () => {
           </>
         )}
       </IonContent>
+      <DeleteAlert
+        isOpen={isDelete}
+        handleCancel={() => setIsdelete(false)}
+        message={`Apakah kamu yakin ingin menghapus data ${selectedItem?.nama_dokumen} `}
+        deleteProps={{
+          name: "karyawan",
+          endpoint: `dokumen-karyawans/${selectedItem?.id}`,
+          onSuccessCallback: () => {
+            setIsdelete(false);
+            setSuccessAlert(true);
+          },
+        }}
+      />
+      <NotifAlert
+        isOpen={successAlert}
+        handleCancel={() => setSuccessAlert(false)}
+        message="Berhasil Menghapus Dokumen"
+        type="success"
+      />
     </IonPage>
   );
 };

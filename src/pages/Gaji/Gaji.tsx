@@ -68,7 +68,7 @@ const Gaji: React.FC = () => {
                       <Link to={`/gaji/${riwayat.id}`}>
                         <div className="flex flex-col gap-3">
                           <div className="flex-1 min-w-0">
-                            <p className="text-md font-bold text-gray-900 ">
+                            <p className="text-md font-semibold text-gray-900 ">
                               {moment(riwayat.periode).format("MMMM Y")}
                             </p>
                             <div>

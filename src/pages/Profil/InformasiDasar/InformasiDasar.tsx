@@ -14,6 +14,7 @@ const InformasiDasar: React.FC = () => {
           <div className="flex flex-row justify-between items-center gap-4">
             <PlusCircleIcon className="w-8 h-8" />
             <ArrowLeftCircle
+              strokeWidth={1}
               className="w-8 h-8 cursor-pointer"
               onClick={() => history.goBack()}
             />
@@ -27,7 +28,7 @@ const InformasiDasar: React.FC = () => {
             {[1, 2, 3, 1, 1, 1, 1, 1, 1, 1].map(() => (
               <li className="py-3">
                 <div className="flex flex-row justify-between items-center">
-                  <p className="text-xs font-bold text-gray-900 flex gap-3 items-center ">
+                  <p className="text-xs font-semibold text-gray-900 flex gap-3 items-center ">
                     <CircleShadowButton
                       icon={<Trash2Icon className="w-6 h-6 p-1 text-red-700" />}
                     />

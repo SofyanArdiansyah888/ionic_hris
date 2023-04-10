@@ -39,26 +39,27 @@ ion-datetime{
 
 .form_style {
   outline: none;
-  border: 2px solid #000;
-  box-shadow: 3px 4px 0px 1px #000;
+  border: 1px solid gray;
+  /* box-shadow: 3px 4px 0px 1px #000; */
   /* min-width: 290px; */
   padding: 8px;
-  border-radius: 4px;
+  margin-top:8px;
+  border-radius: 20px;
   font-size: 12px;
 }
 
-.form_style:focus,
+/* .form_style:focus,
 .btn:focus {
   transform: translateY(4px);
   box-shadow: 1px 2px 0px 0px #000;
-}
+} */
 
 .btn {
   padding: 15px;
   font-size: 15px;
   border-radius: 30px;
   font-weight: 800;
-  box-shadow: 5px 5px 0px 0px #000;
+  /* box-shadow: 5px 5px 0px 0px #000; */
 }
 
 
@@ -88,8 +89,8 @@ ion-datetime{
 
 .title {
   color: rgb(220 38 38 / var(--tw-bg-opacity));
-  font-weight: 900;
-  font-size: 2.5em;
+  font-weight: 500;
+  font-size: 2em;
   margin: 20px;
 }
 

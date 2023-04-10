@@ -56,7 +56,7 @@ const Absensi: React.FC = () => {
                     <li className="py-3">
                       <div className="flex flex-col gap-3">
                         <div className="flex-1 min-w-0">
-                          <p className="text-md font-bold text-gray-900 ">
+                          <p className="text-md font-semibold text-gray-900 ">
                             {moment(absen.tanggal).format("DD MMMM Y")}
                           </p>
                           <div>
@@ -73,7 +73,7 @@ const Absensi: React.FC = () => {
                                   absen.waktu_keluar.length - 3
                                 )}{" "}
                               </p>
-                              <p className="text-xs text-black font-black">
+                              <p className="text-xs text-gray-500 ">
                                 Telat {absen.jumlah_telat} Menit
                               </p>
                             </div>

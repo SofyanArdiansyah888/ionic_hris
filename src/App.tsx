@@ -113,9 +113,9 @@ const MainTabs: React.FC = () => {
   }, [pathname]);
 
   const styles = {
-    tabBar: `py-2 border-t-4 border-black`,
+    tabBar: `py-2 `,
     tabButton: ``, //`font-black text-black focus:text-red-700`,
-    tabLabel: `font-semibold text-xs mt-1`,
+    tabLabel: ` text-xs mt-1`,
   };
 
   return (
@@ -362,7 +362,7 @@ const MainTabs: React.FC = () => {
           href="/beranda"
           className={styles.tabButton}
         >
-          <HomeIcon strokeWidth={2} />
+          <HomeIcon strokeWidth={1} />
           <IonLabel className={styles.tabLabel}>Beranda</IonLabel>
         </IonTabButton>
 
@@ -371,12 +371,12 @@ const MainTabs: React.FC = () => {
           href="/aktifitas"
           className={styles.tabButton}
         >
-          <FileClockIcon strokeWidth={2} />
+          <FileClockIcon strokeWidth={1} />
           <IonLabel className={styles.tabLabel}>Aktifitas</IonLabel>
         </IonTabButton>
 
         <IonTabButton tab="gaji" href="/gaji" className={styles.tabButton}>
-          <BanknoteIcon strokeWidth={2} />
+          <BanknoteIcon strokeWidth={1} />
           <IonLabel className={styles.tabLabel}>Gaji</IonLabel>
         </IonTabButton>
 
@@ -385,12 +385,12 @@ const MainTabs: React.FC = () => {
           href="/absensi"
           className={styles.tabButton}
         >
-          <HistoryIcon strokeWidth={2} />
+          <HistoryIcon strokeWidth={1} />
           <IonLabel className={styles.tabLabel}>Absensi</IonLabel>
         </IonTabButton>
 
         <IonTabButton tab="profil" href="/profil" className={styles.tabButton}>
-          <ContactIcon strokeWidth={2} />
+          <ContactIcon strokeWidth={1} />
           <IonLabel className={styles.tabLabel}>Profil</IonLabel>
         </IonTabButton>
       </IonTabBar>

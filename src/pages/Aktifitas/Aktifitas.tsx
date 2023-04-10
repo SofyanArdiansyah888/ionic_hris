@@ -80,7 +80,7 @@ const Tab2: React.FC = () => {
                           <div className="flex flex-col gap-3">
                             <div className="flex-1 min-w-0">
                               <div className="flex flex-row justify-between">
-                              <p className="text-md font-bold text-gray-900 ">
+                              <p className="text-md font-semibold text-gray-900 ">
                                 {aktifitas.karyawan.nama_lengkap} 
                               </p>
                               <p className="text-[10px] bg-red-700 text-white p-1 rounded-md capitalize">
@@ -95,13 +95,13 @@ const Tab2: React.FC = () => {
                                   </p>
                                   {aktifitas.tanggal_mulai ===
                                   aktifitas.tanggal_selesai ? (
-                                    <p className="text-xs text-black font-black">
+                                    <p className="text-xs text-black font-semibold">
                                       {moment(aktifitas.tanggal_mulai).format(
                                         "DD MMM YYYY"
                                       )}
                                     </p>
                                   ) : (
-                                    <p className="text-xs text-black font-black">
+                                    <p className="text-xs text-black font-semibold">
                                       {moment(aktifitas.tanggal_mulai).format(
                                         "DD MMM YYYY"
                                       )}{" "}

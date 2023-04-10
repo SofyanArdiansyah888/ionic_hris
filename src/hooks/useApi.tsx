@@ -74,7 +74,7 @@ export function useGet<T>({
   });
 }
 
-interface IGenericPos {
+export interface IGenericPos {
   name: string | null;
   endpoint: string;
   data?: any;

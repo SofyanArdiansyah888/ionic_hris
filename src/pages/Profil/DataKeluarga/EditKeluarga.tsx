@@ -48,13 +48,12 @@ const EditKeluarga: React.FC = () => {
     endpoint: `keluarga-karyawans/${params?.id}`,
   });
 
-  useEffect(() => {
-    reset();
-    refetch();
-  }, [params]);
+  useEffect(() => { refetch(); }, [params]);
 
   useEffect(() => {
+    
     if (data?.data) {
+      
       const { nama, anak_ke, status_keluarga, tempat_lahir, tanggal_lahir } =
         data.data;
       setValue("anak_ke", anak_ke?.toString());
@@ -101,7 +100,7 @@ const EditKeluarga: React.FC = () => {
                 onSubmit={handleSubmit(handleEditKeluarga)}
                 className="w-full px-12"
               >
-                <h3 className="text-xl font-semibold">Form Tambah Keluarga </h3>
+                <h3 className="text-xl font-semibold">Form Edit Keluarga </h3>
                 <div className="flex flex-col justify-center items-center my-8 ">
                   <div className="form_group">
                     <label className="text-sm">Nama</label>
