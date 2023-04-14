@@ -117,7 +117,7 @@ export default function CreateCuti() {
         <IonContent fullscreen>
           <form
             onSubmit={handleSubmit(handleCreateCuti)}
-            className="flex flex-col  justify-center items-center "
+            className="flex flex-col  justify-center items-center py-8 "
           >
             <div className="w-full px-12">
               <h3 className="text-xl font-semibold">Form Pengajuan Cuti</h3>
@@ -125,7 +125,7 @@ export default function CreateCuti() {
                 <div className="form_group">
                   <label className="text-sm">Cuti</label>
                   <select
-                    className="form_style w-full"
+                    className="select select-bordered rounded-full mt-2 w-full"
                     {...register("izin_id")}
                   >
                     <option value="">Pilih Cuti</option>
@@ -142,7 +142,7 @@ export default function CreateCuti() {
                   <label className="text-sm">Sisa Cuti</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("sisa_cuti")}
                     disabled
                   />
@@ -153,7 +153,7 @@ export default function CreateCuti() {
                   <label className="text-sm">Tanggal Mulai</label>
                   <input
                     type="date"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("tanggal_mulai")}
                   />
                   <LabelError errorMessage={errors.tanggal_mulai?.message} />
@@ -163,7 +163,7 @@ export default function CreateCuti() {
                   <label className="text-sm">Tanggal Selesai</label>
                   <input
                     type="date"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("tanggal_selesai")}
                   />
                   <LabelError errorMessage={errors.tanggal_selesai?.message} />
@@ -173,7 +173,7 @@ export default function CreateCuti() {
                   <label className="text-sm">Telepon Yang Bisa Dihubungi</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered rounded-full w-full mt-2"
                     {...register("telepon")}
                   />
                   <LabelError errorMessage={errors.telepon?.message} />
@@ -182,7 +182,7 @@ export default function CreateCuti() {
                 <div className="form_group">
                   <label className="text-sm">Keterangan</label>
                   <textarea
-                    className="form_style w-full"
+                    className="input input-bordered rounded-full w-full py-2 mt-2"
                     {...register("keterangan")}
                   />
                   <LabelError errorMessage={errors.keterangan?.message} />
@@ -190,7 +190,7 @@ export default function CreateCuti() {
               </div>
 
               <button
-                className="btn bg-red-600  w-full"
+                className="btn bg-red-600 border-red-600  w-full"
                 type="submit"
                 disabled={isCreateLoading}
               >

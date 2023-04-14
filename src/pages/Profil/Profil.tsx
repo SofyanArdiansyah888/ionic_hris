@@ -23,7 +23,7 @@ const Profil: React.FC = () => {
     name: "karyawan",
     endpoint: `karyawans/${user?.karyawan.id}`,
   });
-  const [image, setImage] = useState<any>("");
+  const [image, setImage] = useState<any>("assets/logo-icon.png");
   useEffect(()=>{
     setImage(data?.data.foto)
   },[data])

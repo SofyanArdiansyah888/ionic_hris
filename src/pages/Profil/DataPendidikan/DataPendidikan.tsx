@@ -9,6 +9,7 @@ import { useGet } from "../../../hooks/useApi";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { GetDetailPayload } from "../../../models/GenericPayload";
 import { KaryawanEntity } from "../../../models/Karyawan.entity";
+import EmptyBox from "../../../components/EmptyBox";
 
 const DataPendidikan: React.FC = () => {
   const history = useHistory();
@@ -28,6 +29,7 @@ const DataPendidikan: React.FC = () => {
         rightIcon={
           <div className="flex flex-row justify-between items-center gap-4">
             <PlusCircleIcon
+              strokeWidth={1}
               className="w-8 h-8 cursor-pointer"
               onClick={() => {
                 history.push("/create-pendidikan");
@@ -46,28 +48,39 @@ const DataPendidikan: React.FC = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <div className="px-6 mt-4 divide-y-2  ">
-            <ul className="max-w-md divide-y-2 divide-zinc-300">
-              {payload?.data?.pendidikan_karyawans?.map((pendidikan, index) => (
-                <li key={index} className="py-3 cursor-pointer">
-                  <div className="text-xs font-semibold text-gray-900 flex gap-3 items-center w-full ">
-                    <CircleShadowButton
-                      icon={<Trash2Icon className="w-6 h-6 p-1 text-red-700" />}
-                    />
+          <>
+            { payload?.data && payload?.data.pendidikan_karyawans.length > 0 ? (
+              <div className="px-6 mt-4 divide-y-2  ">
+                <ul className="max-w-md divide-y-2 divide-zinc-300">
+                  {payload?.data?.pendidikan_karyawans?.map(
+                    (pendidikan, index) => (
+                      <li key={index} className="py-3 cursor-pointer">
+                        <div className="text-xs font-semibold text-gray-900 flex gap-3 items-center w-full ">
+                          <CircleShadowButton
+                            icon={
+                              <Trash2Icon className="w-6 h-6 p-1 text-red-700" />
+                            }
+                          />
 
-                    <div className="flex-1">
-                      <Link to={`/data-pendidikan/${pendidikan.id}`}>
-                        <p>{pendidikan.nama_sekolah}</p>
-                        <p className="text-xs text-slate-500 font-light ">
-                          {pendidikan.tahun_masuk} - {pendidikan.tahun_keluar}
-                        </p>
-                      </Link>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+                          <div className="flex-1">
+                            <Link to={`/data-pendidikan/${pendidikan.id}`}>
+                              <p>{pendidikan.nama_sekolah}</p>
+                              <p className="text-xs text-slate-500 font-light ">
+                                {pendidikan.tahun_masuk} -{" "}
+                                {pendidikan.tahun_keluar}
+                              </p>
+                            </Link>
+                          </div>
+                        </div>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+            ) : (
+              <EmptyBox />
+            )}
+          </>
         )}
       </IonContent>
     </IonPage>

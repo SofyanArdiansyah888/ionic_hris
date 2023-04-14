@@ -14,7 +14,9 @@ const Tab1: React.FC = () => {
   const distance = useDistanceStore((state) => state.distance);
   const [successAlert, setSuccessAlert] = useState(false);
   const [dangerAlert, setDangerAlert] = useState(false);
-  const [imageProfil, setImageProfil] = useState<string>('assets/logo.png');
+  const [imageProfil, setImageProfil] = useState<string>(
+    "assets/logo-icon.png"
+  );
   const [user] = useLocalStorage("user");
   const [time, setTime] = useState<string>();
 
@@ -25,7 +27,15 @@ const Tab1: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      setImageProfil(data?.data?.foto);
+      let fotoUrl = "assets/logo-icon.png";
+
+      if (!(data.data.foto === null || data.data.foto === "")) {
+        fotoUrl = data.data.foto;
+      }
+
+      setTimeout(() => {
+        setImageProfil(fotoUrl);
+      }, 300);
     }
   }, [data]);
 

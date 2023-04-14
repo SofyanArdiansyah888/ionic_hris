@@ -12,7 +12,7 @@ import { useGet } from "../../hooks/useApi";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GetPayload } from "../../models/GenericPayload";
 import { RiwayatPenggajianEntity } from "../../models/RiwayatPenggajian.entity";
-import { formatRupiah } from "../../utils/formatter";
+import { formatRupiah, formatThousand } from "../../utils/formatter";
 import { Link } from "react-router-dom";
 
 const Gaji: React.FC = () => {
@@ -62,43 +62,51 @@ const Gaji: React.FC = () => {
           ) : (
             <>
               {payload?.data && payload.data.length > 0 ? (
-                <div className="px-6 ">
-                  <div className="max-w-md  divide-zinc-300">
+                <div className="px-6 mt-4 bg-zinc-50 mx-2 py-4 rounded-xl ">
+                  <div className="  divide-zinc-300">
                     {payload?.data.map((riwayat) => (
                       <Link to={`/gaji/${riwayat.id}`}>
-                        <div className="flex flex-col gap-3">
-                          <div className="flex-1 min-w-0">
-                            <p className="text-md font-semibold text-gray-900 ">
-                              {moment(riwayat.periode).format("MMMM Y")}
-                            </p>
-                            <div>
-                              <div className="flex flex-col  items-end">
-                                <p className="text-sm text-gray-700 flex gap-2 ">
-                                  Gaji Pokok :{" "}
-                                  <strong className="w-28 text-end">
-                                    {formatRupiah(riwayat.gaji_pokok)}
-                                  </strong>
-                                </p>
-                                <p className="text-sm text-gray-700 flex gap-2 ">
-                                  Potongan :{" "}
-                                  <strong className="w-28 text-end">
-                                    {formatRupiah(riwayat.total_potongan)}
-                                  </strong>
-                                </p>
-                                <p className="text-sm text-gray-700 flex gap-2">
-                                  Tunjangan :{" "}
-                                  <strong className="w-28 text-end">
-                                    {formatRupiah(riwayat.total_tunjangan)}
-                                  </strong>
-                                </p>
-                                <div className="border-b-2 border-black h-2 w-full"></div>
-                                <p className="text-sm text-gray-700 mt-2 flex gap-2 ">
-                                  Total Gaji :{" "}
-                                  <strong className="w-28 text-end">
-                                    {formatRupiah(riwayat.total_gaji)}
-                                  </strong>
-                                </p>
+                        <p className="text-xl">
+                          {moment(riwayat.periode).format("MMMM Y")}
+                        </p>
+
+                        <div className="flex flex-col mt-4  ">
+                          {/* GAJI POKOK */}
+                          <div className="text-sm text-gray-700 flex justify-between gap-2 ">
+                            Gaji Pokok
+                            <div className="w-28 text-end flex">
+                              <div>Rp.</div>
+                              <div className="w-full">
+                                {formatThousand(riwayat.gaji_pokok)}
                               </div>
+                            </div>
+                          </div>
+                          {/* POTONGAN */}
+                          <div className="text-sm text-gray-700 flex justify-between gap-2 ">
+                            Potongan
+                            <div className="w-28 text-end flex">
+                              <div>Rp.</div>
+                              <div className="w-full">
+                                {formatThousand(riwayat.total_potongan)}
+                              </div>
+                            </div>
+                          </div>
+                          {/* TUNJANGAN */}
+                          <div className="text-sm text-gray-700 flex justify-between gap-2 ">
+                            Tunjangan
+                            <div className="w-28 text-end flex">
+                              <div>Rp.</div>
+                              <div className="w-full">
+                                {formatThousand(riwayat.total_tunjangan)}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="border-b-2 border-zinc-50 h-2 w-full"></div>
+                          <div className="text-sm text-gray-700 flex justify-between gap-2 ">
+                            Total Gaji
+                            <div className="w-28 text-end flex">
+                              <div>Rp.</div>
+                              <div className="w-full">{formatThousand(riwayat.total_gaji)}</div>
                             </div>
                           </div>
                         </div>

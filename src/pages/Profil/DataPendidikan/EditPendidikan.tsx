@@ -104,7 +104,7 @@ const EditPendidikan: React.FC = () => {
                     <label className="text-sm">Nama Sekolah</label>
                     <input
                       type="text"
-                      className="form_style w-full"
+                      className="input input-bordered mt-2 rounded-full w-full"
                       {...register("nama_sekolah")}
                     />
                     <LabelError errorMessage={errors.nama_sekolah?.message} />
@@ -114,7 +114,7 @@ const EditPendidikan: React.FC = () => {
                     <label className="text-sm">Jenjang</label>
                     <input
                       type="text"
-                      className="form_style w-full"
+                      className="input input-bordered mt-2 rounded-full w-full"
                       {...register("jenjang")}
                     />
                     <LabelError errorMessage={errors.jenjang?.message} />
@@ -124,7 +124,7 @@ const EditPendidikan: React.FC = () => {
                     <label className="text-sm">Tahun Masuk</label>
                     <input
                       type="number"
-                      className="form_style w-full"
+                      className="input input-bordered mt-2 rounded-full w-full"
                       {...register("tahun_masuk")}
                     />
                     <LabelError errorMessage={errors.tahun_masuk?.message} />
@@ -134,7 +134,7 @@ const EditPendidikan: React.FC = () => {
                     <label className="text-sm">Tahun Keluar</label>
                     <input
                       type="number"
-                      className="form_style w-full"
+                      className="input input-bordered mt-2 rounded-full w-full"
                       {...register("tahun_keluar")}
                     />
                     <LabelError errorMessage={errors.tahun_keluar?.message} />

@@ -15,6 +15,7 @@ export interface PotonganEntity {
   id: number;
   nama_potongan: string;
   nominal_bawaan: string;
+  nominal: string;
   permanent: number;
   tanggal_awal_potongan: string;
   tanggal_akhir_potongan: string;

@@ -92,7 +92,7 @@ export default function CreateIzin() {
                 <div className="form_group">
                   <label className="text-sm">Izin</label>
                   <select
-                    className="form_style w-full"
+                    className="select select-bordered mt-2 rounded-full w-full"
                     {...register("izin_id")}
                   >
                     {payloadIzin?.data.map((izin,index) => (
@@ -106,7 +106,7 @@ export default function CreateIzin() {
                   <label className="text-sm">Tanggal Mulai</label>
                   <input
                     type="date"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("tanggal_mulai")}
                   />
                   <LabelError errorMessage={errors.tanggal_mulai?.message} />
@@ -116,7 +116,7 @@ export default function CreateIzin() {
                   <label className="text-sm">Tanggal Selesai</label>
                   <input
                     type="date"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("tanggal_selesai")}
                   />
                   <LabelError errorMessage={errors.tanggal_selesai?.message} />
@@ -126,7 +126,7 @@ export default function CreateIzin() {
                   <label className="text-sm">Telepon Yang Bisa Dihubungi</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("telepon")}
                   />
                   <LabelError errorMessage={errors.telepon?.message} />
@@ -135,7 +135,7 @@ export default function CreateIzin() {
                 <div className="form_group">
                   <label className="text-sm">Keterangan</label>
                   <textarea
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("keterangan")}
                   />
                   <LabelError errorMessage={errors.keterangan?.message} />

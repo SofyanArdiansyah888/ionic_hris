@@ -56,7 +56,7 @@ const UbahPassword: React.FC = () => {
   };
   return (
     <>
-      <IonPage>
+      <IonPage >
         <KembaliHeader handleKembali={() => history.goBack()} />
         <IonContent fullscreen>
           <div className="flex flex-col  h-full justify-center items-center ">
@@ -67,20 +67,21 @@ const UbahPassword: React.FC = () => {
               <h3 className="text-xl font-semibold">Form Ubah Password</h3>
               <div className="flex flex-col justify-center items-center my-8 ">
                 <div className="form_group">
-                  <label className="text-sm">Password</label>
+                  {/* <label className="text-sm">Password</label> */}
                   <input
                     type="password"
-                    className="form_style w-full"
+                    className="input input-bordered input-sm rounded-full w-full"
+                    placeholder="Password"
                     {...register("password")}
                   />
                   <LabelError errorMessage={errors.password?.message} />
                 </div>
 
                 <div className="form_group">
-                  <label className="text-sm">Ulangi Password</label>
                   <input
                     type="password"
-                    className="form_style w-full"
+                    className="input input-bordered input-sm rounded-full w-full py-2"
+                    placeholder="Ulangi Password"
                     {...register("confirm_password")}
                   />
                   <LabelError errorMessage={errors.confirm_password?.message} />

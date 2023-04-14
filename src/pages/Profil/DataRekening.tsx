@@ -86,7 +86,7 @@ const DataRekening: React.FC = () => {
                     <label className="text-sm">Nama Pemilik Rekening</label>
                     <input
                       type="text"
-                      className="form_style w-full"
+                      className="input input-bordered mt-2 rounded-full w-full"
                       {...register("nama_pemilik_rekening")}
                     />
                     <LabelError
@@ -98,7 +98,7 @@ const DataRekening: React.FC = () => {
                     <label className="text-sm">Nama Bank</label>
                     <input
                       type="text"
-                      className="form_style w-full"
+                      className="input input-bordered mt-2 rounded-full w-full"
                       {...register("nama_bank")}
                     />
                     <LabelError errorMessage={errors.nama_bank?.message} />
@@ -108,7 +108,7 @@ const DataRekening: React.FC = () => {
                     <label className="text-sm">Nomor Rekening</label>
                     <input
                       type="text"
-                      className="form_style w-full"
+                      className="input input-bordered mt-2 rounded-full w-full"
                       {...register("nomor_rekening")}
                     />
                     <LabelError errorMessage={errors.nomor_rekening?.message} />

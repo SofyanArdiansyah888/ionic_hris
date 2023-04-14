@@ -113,8 +113,8 @@ const MainTabs: React.FC = () => {
   }, [pathname]);
 
   const styles = {
-    tabBar: `py-2 `,
-    tabButton: ``, //`font-black text-black focus:text-red-700`,
+    tabBar: `p-2 bg-zinc-100 rounded-full my-2 mx-2  `,
+    tabButton: `bg-zinc-100`, //`font-black text-black focus:text-red-700`,
     tabLabel: ` text-xs mt-1`,
   };
 

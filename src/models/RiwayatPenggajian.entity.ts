@@ -15,6 +15,8 @@
 */
 
 import { KaryawanEntity } from "./Karyawan.entity";
+import { PotonganEntity } from "./Potongan.entity";
+import { TunjanganEntity } from "./Tunjangan.entity";
 
 export interface RiwayatPenggajianEntity {
   id:number;
@@ -25,7 +27,7 @@ export interface RiwayatPenggajianEntity {
   gaji_pokok: number;
   total_gaji: number;
   periode: string;
-  detail_tunjangan: [];
-  detail_potongan: [];
+  detail_tunjangan: TunjanganEntity[];
+  detail_potongan: PotonganEntity[];
 }
 

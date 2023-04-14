@@ -70,17 +70,18 @@ export default function Login() {
           <h3 className="flex justify-start w-full   font-semibold text-xl  ">
             Login
           </h3>
+          
           <div className="form_group ">
-            <label>Username</label>
-            <input className="form_style w-full mt-2" {...register("name")}  />
+            <input className="input input-bordered  rounded-full w-full mt-2 " placeholder="Username" {...register("name")}  />
             <small className="text-xs text-red-700 mt-2 font-semibold pl-4">{errors.name?.message}</small>
           </div>
 
           <div className="form_group">
-            <label>Password</label>
+            
             <input
-              className="form_style w-full mt-2"
+              className="input input-bordered  rounded-full w-full mt-2"
               type="password"
+              placeholder="Password"
               {...register("password")}
             />
             <small className="text-xs text-red-700 mt-2 font-semibold pl-4">{errors.password?.message}</small>
