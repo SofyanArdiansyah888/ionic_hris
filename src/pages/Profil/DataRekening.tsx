@@ -71,7 +71,7 @@ const DataRekening: React.FC = () => {
     <>
       <IonPage>
         <KembaliHeader handleKembali={() => history.goBack()} />
-        <IonContent fullscreen>
+        <IonContent  scrollY>
           {isLoading ? (
             <Loading />
           ) : (
@@ -116,7 +116,7 @@ const DataRekening: React.FC = () => {
                 </div>
 
                 <button
-                  className="btn bg-red-600 w-full my-4"
+                  className={`btn bg-red-600 border-red-600 w-full my-4 ${isUpdateLoading ? 'animate-pulse' : ''}`}
                   type="submit"
                   disabled={isUpdateLoading}
                 >

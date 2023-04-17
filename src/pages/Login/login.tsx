@@ -88,7 +88,7 @@ export default function Login() {
           </div>
 
           <button
-            className="btn bg-red-600 border-red-600 w-full my-4"
+            className={`btn bg-red-600 border-red-600 w-full my-4 ${isLoading ? 'animate-pulse' : ''}`}
             type="submit"
             disabled={isLoading}
           >

@@ -75,37 +75,37 @@ const Gaji: React.FC = () => {
                           <div className="text-sm text-gray-700 flex justify-between gap-2 ">
                             Gaji Pokok
                             <div className="w-28 text-end flex">
-                              <div>Rp.</div>
+                              <div className="w-12">Rp.</div>
                               <div className="w-full">
                                 {formatThousand(riwayat.gaji_pokok)}
                               </div>
                             </div>
                           </div>
                           {/* POTONGAN */}
-                          <div className="text-sm text-gray-700 flex justify-between gap-2 ">
+                          <div className="text-sm text-red-400 flex justify-between gap-2 mt-2">
                             Potongan
                             <div className="w-28 text-end flex">
-                              <div>Rp.</div>
+                              <div className="w-12">-Rp.</div>
                               <div className="w-full">
                                 {formatThousand(riwayat.total_potongan)}
                               </div>
                             </div>
                           </div>
                           {/* TUNJANGAN */}
-                          <div className="text-sm text-gray-700 flex justify-between gap-2 ">
+                          <div className="text-sm text-green-400 flex justify-between gap-2 mt-2">
                             Tunjangan
                             <div className="w-28 text-end flex">
-                              <div>Rp.</div>
+                              <div className="w-12">+Rp.</div>
                               <div className="w-full">
                                 {formatThousand(riwayat.total_tunjangan)}
                               </div>
                             </div>
                           </div>
-                          <div className="border-b-2 border-zinc-50 h-2 w-full"></div>
-                          <div className="text-sm text-gray-700 flex justify-between gap-2 ">
+                          <div className="border-b-2 border-zinc-500 h-2 w-full"></div>
+                          <div className="text-sm text-gray-700 flex justify-between gap-2 mt-2 font-semibold ">
                             Total Gaji
                             <div className="w-28 text-end flex">
-                              <div>Rp.</div>
+                              <div className="w-12">Rp.</div>
                               <div className="w-full">{formatThousand(riwayat.total_gaji)}</div>
                             </div>
                           </div>

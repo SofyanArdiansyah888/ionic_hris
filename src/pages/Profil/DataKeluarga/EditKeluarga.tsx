@@ -158,7 +158,7 @@ const EditKeluarga: React.FC = () => {
                 </div>
 
                 <button
-                  className="btn bg-red-600 w-full my-4"
+                  className={`btn bg-red-600 border-red-600 w-full my-4 ${isCreateLoading ? 'animate-pulse' : ''}`}
                   type="submit"
                   disabled={isCreateLoading}
                 >

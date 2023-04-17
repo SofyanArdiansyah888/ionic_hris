@@ -60,7 +60,7 @@ const CreatePendidikan: React.FC = () => {
       <IonPage>
         <KembaliHeader handleKembali={() => history.goBack()} />
         <IonContent fullscreen>
-          <div className="flex flex-col  h-full justify-center items-center ">
+          <div className="flex flex-col  min-h-full justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreatePendidikan)}
               className="w-full px-12"
@@ -109,7 +109,7 @@ const CreatePendidikan: React.FC = () => {
               </div>
 
               <button
-                className="btn bg-red-600 border-red-600 w-full my-4"
+                className={`btn bg-red-600 border-red-600 w-full my-4 ${isCreateLoading ? 'animate-pulse' : ''}`}
                 type="submit"
                 disabled={isCreateLoading}
               >

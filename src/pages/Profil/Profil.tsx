@@ -98,15 +98,16 @@ const Profil: React.FC = () => {
   };
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent>
         <div className="px-8 ">
           <div className="flex flex-row items-center w-full gap-8 my-10">
             <div className="bg-slate-300 w-26 h-26 rounded-full  ">
               <label>
                 <img
                   src={image}
+                  onError={() => setImage('assets/logo-icon.png')}
                   alt="Gambar Profil"
-                  className="rounded-full w-24 h-24 border-2 border-slate-900  object-cover "
+                  className="rounded-full w-24 h-24 border-2 border-zinc-300  object-cover "
                 ></img>
                 <input
                   type="file"

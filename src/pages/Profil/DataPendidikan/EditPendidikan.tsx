@@ -48,13 +48,13 @@ const EditPendidikan: React.FC = () => {
   });
 
   useEffect(() => {
-    reset();
     refetch();
   }, [params]);
 
   useEffect(() => {
     if (data?.data) {
       const { jenjang, nama_sekolah, tahun_masuk, tahun_keluar } = data.data;
+      console.log(jenjang)
       setValue("jenjang", jenjang?.toString());
       setValue("nama_sekolah", nama_sekolah);
       setValue("tahun_masuk", tahun_masuk?.toString());
@@ -64,7 +64,7 @@ const EditPendidikan: React.FC = () => {
     return () => {
       reset();
     };
-  }, [data]);
+  }, [data,setValue,reset]);
 
   const { mutate, isLoading: isEditLoading } = usePut({
     name: "karyawan",
@@ -93,7 +93,7 @@ const EditPendidikan: React.FC = () => {
           {isFetching ? (
             <Loading />
           ) : (
-            <div className="flex flex-col  h-full justify-center items-center ">
+            <div className="flex flex-col min-h-full  justify-center items-center overflow-scroll pb-24 ">
               <form
                 onSubmit={handleSubmit(handleEditPendidikan)}
                 className="w-full px-12"
@@ -142,7 +142,7 @@ const EditPendidikan: React.FC = () => {
                 </div>
 
                 <button
-                  className="btn bg-red-600 w-full my-4"
+                  className={`btn bg-red-600 border-red-600 w-full my-4 ${isEditLoading ? 'animate-pulse' : ''}`}
                   type="submit"
                   disabled={isEditLoading}
                 >

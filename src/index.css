@@ -25,9 +25,17 @@ ion-page > ion-content#content {
   max-width: 100%;
 }
 
+ion-content{
+  --keyboard-offset: 0 !important;
+}
+
 ion-tab-button {
   --color-selected: #b91c1c;
   --color: black;
+}
+
+ion-tabs{
+  background-color: white;
 }
 
 ion-datetime{

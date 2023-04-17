@@ -52,8 +52,8 @@ const Absensi: React.FC = () => {
             {payload?.data && payload.data.length > 0 ? (
               <div className="px-6 ">
                 <ul className="max-w-md divide-y-2 divide-zinc-300">
-                  {payload?.data.map((absen) => (
-                    <li className="py-3">
+                  {payload?.data.map((absen,index) => (
+                    <li className="py-3" key={index}>
                       <div className="flex flex-col gap-3">
                         <div className="flex-1 min-w-0">
                           <p className="text-md font-semibold text-gray-900 ">
@@ -63,14 +63,14 @@ const Absensi: React.FC = () => {
                             <div className="flex justify-between items-center">
                               <p className="text-sm text-gray-500 ">
                                 In{" "}
-                                {absen.waktu_masuk.substring(
+                                {absen.waktu_masuk?.substring(
                                   0,
-                                  absen.waktu_masuk.length - 3
+                                  absen.waktu_masuk?.length - 3
                                 )}{" "}
                                 - Out{" "}
-                                {absen.waktu_keluar.substring(
+                                {absen.waktu_keluar?.substring(
                                   0,
-                                  absen.waktu_keluar.length - 3
+                                  absen.waktu_keluar?.length - 3
                                 )}{" "}
                               </p>
                               <p className="text-xs text-gray-500 ">

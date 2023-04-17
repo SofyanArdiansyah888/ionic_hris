@@ -27,6 +27,7 @@ const DataDokumen: React.FC = () => {
       endpoint: `karyawans/${user?.karyawan.id}`,
     }
   );
+  console.log(payload?.data.dokumen_karyawans)
 
   return (
     <IonPage>
@@ -36,6 +37,7 @@ const DataDokumen: React.FC = () => {
           <div className="flex flex-row justify-between items-center gap-4">
             <PlusCircleIcon
               className="w-8 h-8 cursor-pointer"
+              strokeWidth={1}
               onClick={() => history.push("/create-dokumen")}
             />
             <ArrowLeftCircle
@@ -70,7 +72,7 @@ const DataDokumen: React.FC = () => {
                               />
                             }
                           />
-                          <div className="w-full cursor-pointer">
+                          <div className="w-full cursor-pointer" onClick={() => window.open(`${dokumen.gLink}`)}>
                             <p>{dokumen.nama_dokumen}</p>
                             <p className="text-xs text-gray-500 lowercase">
                               {dokumen.link_file}

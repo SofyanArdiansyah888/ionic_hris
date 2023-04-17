@@ -71,7 +71,8 @@ const Tab1: React.FC = () => {
                 <img
                   src={imageProfil}
                   alt="Gambar Profil"
-                  className=" w-48 h-48 rounded-full border-2 border-slate-900 object-cover "
+                  onError={() => setImageProfil('assets/logo-icon.png')}
+                  className= {`w-48 h-48 rounded-full border-2 border-zinc-50 object-cover ${imageProfil === 'assets/logo-icon.png' ? 'animate-pulse' : ''}`}
                 ></img>
                 {/* </div> */}
                 {/* HEADER TEXT */}
@@ -86,7 +87,7 @@ const Tab1: React.FC = () => {
 
               <button
                 className={`mx-auto mt-12  rounded-full w-24 h-24 justify-center flex items-center
-        px-5 py-2   border border-b-4 border-r-4 border-black   cursor-pointer
+        px-5 py-2    cursor-pointer
         ${distance <= 100 ? "bg-red-700" : "bg-gray-500"}`}
                 disabled={distance > 100 || isAbsenLoading}
                 onClick={handleAbsen}
