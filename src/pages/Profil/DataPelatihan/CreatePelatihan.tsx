@@ -57,7 +57,7 @@ const CreatePelatihan: React.FC = () => {
       <IonPage>
         <KembaliHeader handleKembali={() => history.push('/data-pelatihan')} />
         <IonContent fullscreen>
-          <div className="flex flex-col  h-full justify-center items-center ">
+          <div className="flex flex-col  min-h-full overflow-scroll justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreatePelatihan)}
               className="w-full px-12"
@@ -68,7 +68,7 @@ const CreatePelatihan: React.FC = () => {
                   <label className="text-sm">Nama Kegiatan</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered rounded-full mt-2 w-full"
                     {...register("nama_kegiatan")}
                   />
                   <LabelError errorMessage={errors.nama_kegiatan?.message} />
@@ -78,7 +78,7 @@ const CreatePelatihan: React.FC = () => {
                   <label className="text-sm">Tahun</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered rounded-full mt-2 w-full"
                     {...register("tahun")}
                   />
                   <LabelError errorMessage={errors.tahun?.message} />
@@ -88,7 +88,7 @@ const CreatePelatihan: React.FC = () => {
                   <label className="text-sm">Valid</label>
                   <input
                     type="date"
-                    className="form_style w-full"
+                    className="input input-bordered rounded-full mt-2 w-full"
                     {...register("valid")}
                   />
                   <LabelError errorMessage={errors.valid?.message} />

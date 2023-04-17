@@ -61,7 +61,7 @@ const CreateKeluarga: React.FC = () => {
       <IonPage>
         <KembaliHeader handleKembali={() => history.goBack()} />
         <IonContent fullscreen>
-          <div className="flex flex-col  justify-center items-center ">
+          <div className="flex flex-col  min-h-full overflow-scroll justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreateKeluarga)}
               className="w-full px-12"

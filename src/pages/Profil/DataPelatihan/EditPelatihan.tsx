@@ -56,7 +56,6 @@ const EditPelatihan: React.FC = () => {
   });
 
   useEffect(() => {
-    reset();
     refetch();
   }, [params]);
 
@@ -102,7 +101,7 @@ const EditPelatihan: React.FC = () => {
                     <label className="text-sm">Nama Kegiatan</label>
                     <input
                       type="text"
-                      className="form_style w-full"
+                      className="input input-bordered rounded-full mt-2 w-full"
                       {...register("nama_kegiatan")}
                     />
                     <LabelError errorMessage={errors.nama_kegiatan?.message} />
@@ -112,7 +111,7 @@ const EditPelatihan: React.FC = () => {
                     <label className="text-sm">Tahun</label>
                     <input
                       type="text"
-                      className="form_style w-full"
+                      className="input input-bordered rounded-full mt-2 w-full"
                       {...register("tahun")}
                     />
                     <LabelError errorMessage={errors.tahun?.message} />
@@ -122,7 +121,7 @@ const EditPelatihan: React.FC = () => {
                     <label className="text-sm">Valid</label>
                     <input
                       type="date"
-                      className="form_style w-full"
+                      className="input input-bordered rounded-full mt-2 w-full"
                       {...register("valid")}
                     />
                     <LabelError errorMessage={errors.valid?.message} />

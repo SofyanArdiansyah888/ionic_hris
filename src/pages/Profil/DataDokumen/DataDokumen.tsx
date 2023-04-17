@@ -21,13 +21,12 @@ const DataDokumen: React.FC = () => {
   const [isDelete, setIsdelete] = useState<boolean>(false);
   const [successAlert, setSuccessAlert] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DokumenKaryawanEntity>();
-  const { data: payload, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>(
+  const { data: payload, isFetching } = useGet<GetDetailPayload<KaryawanEntity>>(
     {
       name: "karyawan",
       endpoint: `karyawans/${user?.karyawan.id}`,
     }
   );
-  console.log(payload?.data.dokumen_karyawans)
 
   return (
     <IonPage>
@@ -50,7 +49,7 @@ const DataDokumen: React.FC = () => {
       />
 
       <IonContent fullscreen>
-        {isLoading ? (
+        {isFetching ? (
           <Loading />
         ) : (
           <>

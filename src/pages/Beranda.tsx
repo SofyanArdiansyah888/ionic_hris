@@ -12,11 +12,12 @@ import Loading from "../components/Loading";
 import NotifAlert from "../components/NotifAlert";
 const Tab1: React.FC = () => {
   const distance = useDistanceStore((state) => state.distance);
-  const [successAlert, setSuccessAlert] = useState(false);
+  // const [successAlert, setSuccessAlert] = useState(false);
   const [dangerAlert, setDangerAlert] = useState(false);
   const [imageProfil, setImageProfil] = useState<string>(
     "assets/logo-icon.png"
   );
+  const [isAbsenSuccess, setIsAbsenSuccess] = useState(false);
   const [user] = useLocalStorage("user");
   const [time, setTime] = useState<string>();
 
@@ -24,6 +25,14 @@ const Tab1: React.FC = () => {
     name: "karyawan",
     endpoint: `karyawans/${user?.karyawan?.id}`,
   });
+
+  useEffect(() => {
+    if (isAbsenSuccess) {
+      setTimeout(() => {
+        setIsAbsenSuccess(false);
+      }, 2000);
+    }
+  }, [isAbsenSuccess]);
 
   useEffect(() => {
     if (data) {
@@ -43,7 +52,8 @@ const Tab1: React.FC = () => {
     name: "do-absen",
     endpoint: `karyawans/${user?.karyawan.id}/absen`,
     onSuccessCallback: () => {
-      setSuccessAlert(true);
+      // setSuccessAlert(true);
+      setIsAbsenSuccess(true)
     },
     onErrorCallback: () => setDangerAlert(true),
   });
@@ -71,8 +81,11 @@ const Tab1: React.FC = () => {
                 <img
                   src={imageProfil}
                   alt="Gambar Profil"
-                  onError={() => setImageProfil('assets/logo-icon.png')}
-                  className= {`w-48 h-48 rounded-full border-2 border-zinc-50 object-cover ${imageProfil === 'assets/logo-icon.png' ? 'animate-pulse' : ''}`}
+                  onError={() => setImageProfil("assets/logo-icon.png")}
+                  className={`w-48 h-48 rounded-full border-2 border-zinc-50 object-cover ${imageProfil === "assets/logo-icon.png"
+                      ? "animate-pulse"
+                      : ""
+                    }`}
                 ></img>
                 {/* </div> */}
                 {/* HEADER TEXT */}
@@ -85,25 +98,31 @@ const Tab1: React.FC = () => {
                 </div>
               </div>
 
-              <button
-                className={`mx-auto mt-12  rounded-full w-24 h-24 justify-center flex items-center
-        px-5 py-2    cursor-pointer
-        ${distance <= 100 ? "bg-red-700" : "bg-gray-500"}`}
-                disabled={distance > 100 || isAbsenLoading}
-                onClick={handleAbsen}
-              >
-                <Fingerprint className="w-16 h-16 text-white " />
-              </button>
+              {!isAbsenSuccess ? (
+                <button
+                  className={`mx-auto mt-12  rounded-full w-24 h-24 justify-center flex items-center
+                      px-5 py-2    cursor-pointer
+                      ${distance <= 100 ? "bg-red-700" : "bg-gray-500"}`}
+                  disabled={distance > 100 || isAbsenLoading}
+                  onClick={handleAbsen}
+                >
+                  <Fingerprint className="w-16 h-16 text-white " />
+                </button>
+              ) : (
+                <div className="mt-12 mx-auto text-center bg-red-600 text-white font-semibold rounded-xl px-2 py-1 w-48">
+                  Berhasil Melakukan Absensi
+                </div>
+              )}
             </div>
           </>
         )}
       </IonContent>
-      <NotifAlert
+      {/* <NotifAlert
         isOpen={successAlert}
         handleCancel={() => setSuccessAlert(false)}
         message="Berhasil Melakukan Absen"
         type="success"
-      />
+      /> */}
       <NotifAlert
         isOpen={dangerAlert}
         handleCancel={() => setDangerAlert(false)}

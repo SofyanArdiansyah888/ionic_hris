@@ -15,7 +15,7 @@ const DataPendidikan: React.FC = () => {
   const history = useHistory();
   const [user] = useLocalStorage("user");
 
-  const { data: payload, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>(
+  const { data: payload, isFetching } = useGet<GetDetailPayload<KaryawanEntity>>(
     {
       name: "karyawan",
       endpoint: `karyawans/${user?.karyawan.id}`,
@@ -45,7 +45,7 @@ const DataPendidikan: React.FC = () => {
       />
 
       <IonContent fullscreen>
-        {isLoading ? (
+        {isFetching ? (
           <Loading />
         ) : (
           <>

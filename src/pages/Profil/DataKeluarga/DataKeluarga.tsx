@@ -22,7 +22,7 @@ const DataKeluarga: React.FC = () => {
   const [successAlert, setSuccessAlert] = useState(false);
   const [selectedItem, setSelectedItem] = useState<KeluargaKaryawanEntity>();
 
-  const { data: payload, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>(
+  const { data: payload, isFetching } = useGet<GetDetailPayload<KaryawanEntity>>(
     {
       name: "karyawan",
       endpoint: `karyawans/${user?.karyawan.id}`,
@@ -51,7 +51,7 @@ const DataKeluarga: React.FC = () => {
       />
 
       <IonContent fullscreen>
-        {isLoading ? (
+        {isFetching ? (
           <Loading />
         ) : (
           <>

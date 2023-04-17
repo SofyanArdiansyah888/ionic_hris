@@ -84,7 +84,7 @@ export default function CreateIzin() {
         <IonContent fullscreen>
           <form
             onSubmit={handleSubmit(handleCreateIzin)}
-            className="flex flex-col  justify-center items-center "
+            className="flex flex-col min-h-full overflow-scroll  justify-center items-center "
           >
             <div className="w-full px-12">
               <h3 className="text-xl font-semibold">Form Pengajuan Izin</h3>

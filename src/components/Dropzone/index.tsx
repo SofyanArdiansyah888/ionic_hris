@@ -28,7 +28,7 @@ function Dropzone(props: DropzoneProps) {
     <div
       {...computedProps}
       ref={fileUploadRef}
-      className="[&.dropzone]:border-2 [&.dropzone]:border-dashed dropzone [&.dropzone]:border-darkmode-200/60 [&.dropzone]:dark:bg-darkmode-600 [&.dropzone]:dark:border-white/5"
+      className="w-full [&.dropzone]:border-2 [&.dropzone]:border-dashed dropzone [&.dropzone]:border-zinc-300 [&.dropzone]:dark:bg-darkmode-600 [&.dropzone]:dark:border-white/5"
     >
       <div className="dz-message">{props.children}</div>
     </div>

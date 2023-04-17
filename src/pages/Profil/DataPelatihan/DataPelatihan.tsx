@@ -23,7 +23,7 @@ const DataPelatihan: React.FC = () => {
   const [selectedItem, setSelectedItem] =
     useState<RiwayatTrainingKaryawanEntity>();
 
-  const { data: payload, isLoading } = useGet<GetDetailPayload<KaryawanEntity>>(
+  const { data: payload, isFetching } = useGet<GetDetailPayload<KaryawanEntity>>(
     {
       name: "karyawan",
       endpoint: `karyawans/${user?.karyawan.id}`,
@@ -37,6 +37,7 @@ const DataPelatihan: React.FC = () => {
           <div className="flex flex-row justify-between items-center gap-4">
             <PlusCircleIcon
               className="w-8 h-8 cursor-pointer"
+              strokeWidth={1}
               onClick={() => {
                 history.push("/create-pelatihan");
               }}
@@ -51,7 +52,7 @@ const DataPelatihan: React.FC = () => {
       />
 
       <IonContent fullscreen>
-        {isLoading ? (
+        {isFetching ? (
           <Loading />
         ) : (
           <>
@@ -64,6 +65,7 @@ const DataPelatihan: React.FC = () => {
                       <li key={index} className="py-3 cursor-pointer">
                         <div className="text-xs font-semibold text-gray-900 flex gap-3 items-center w-full ">
                           <CircleShadowButton
+                        
                             icon={
                               <Trash2Icon
                                 className="w-6 h-6 p-1 text-red-700"

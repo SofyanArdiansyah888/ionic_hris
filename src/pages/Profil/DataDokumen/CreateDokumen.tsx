@@ -56,7 +56,7 @@ const CreateDokumen: React.FC = () => {
       <IonPage>
         <KembaliHeader handleKembali={() => history.goBack()} />
         <IonContent fullscreen>
-          <div className="flex flex-col  justify-center items-center ">
+          <div className="flex flex-col min-h-full overflow-scroll  justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreateDokumen)}
               className="w-full px-12"
@@ -67,14 +67,14 @@ const CreateDokumen: React.FC = () => {
                   <label className="text-sm">Nama Dokumen</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("nama_dokumen")}
                   />
                   <LabelError errorMessage={errors.nama_dokumen?.message} />
                 </div>
 
                 <div className="form_group">
-                  <label className="text-sm">File</label>
+                  <label className="text-sm mb-2">File</label>
                   <Dropzone
                     options={{
                       url: `${process.env.REACT_APP_BASE_URL}upload-dokumen`,

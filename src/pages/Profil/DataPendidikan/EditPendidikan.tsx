@@ -50,20 +50,22 @@ const EditPendidikan: React.FC = () => {
   useEffect(() => {
     refetch();
   }, [params]);
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  },[])
 
   useEffect(() => {
     if (data?.data) {
       const { jenjang, nama_sekolah, tahun_masuk, tahun_keluar } = data.data;
-      console.log(jenjang)
       setValue("jenjang", jenjang?.toString());
       setValue("nama_sekolah", nama_sekolah);
       setValue("tahun_masuk", tahun_masuk?.toString());
       setValue("tahun_keluar", tahun_keluar?.toString());
     }
 
-    return () => {
-      reset();
-    };
+
   }, [data,setValue,reset]);
 
   const { mutate, isLoading: isEditLoading } = usePut({
