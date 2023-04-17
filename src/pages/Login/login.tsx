@@ -64,7 +64,7 @@ export default function Login() {
           <img src={"assets/logo.png"} className="w-[500px] h-[500px] opacity-10" alt="Logo Nobel" />  
       </div> */}
       <img src={"assets/logo.png"} className="w-40 h-40 " alt="Logo Nobel" />
-      <h1 className="title font-semibold">ITB Nobel</h1>
+      <h1 className="title font-semibold">HRIS Nobel</h1>
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="form_area px-3 w-[320px] gap-6">
           <h3 className="flex justify-start w-full   font-semibold text-xl  ">

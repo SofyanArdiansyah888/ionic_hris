@@ -60,8 +60,8 @@ const CreateKeluarga: React.FC = () => {
     <>
       <IonPage>
         <KembaliHeader handleKembali={() => history.goBack()} />
-        <IonContent fullscreen>
-          <div className="flex flex-col  min-h-full overflow-scroll justify-center items-center ">
+        <IonContent >
+          <div className="flex flex-col  justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreateKeluarga)}
               className="w-full px-12"
@@ -72,7 +72,7 @@ const CreateKeluarga: React.FC = () => {
                   <label className="text-sm">Nama</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("nama")}
                   />
                   <LabelError errorMessage={errors.nama?.message} />
@@ -82,7 +82,7 @@ const CreateKeluarga: React.FC = () => {
                   <label className="text-sm">Tempat Lahir</label>
                   <input
                     type="text"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("tempat_lahir")}
                   />
                   <LabelError errorMessage={errors.tempat_lahir?.message} />
@@ -92,7 +92,7 @@ const CreateKeluarga: React.FC = () => {
                   <label className="text-sm">Tanggal Lahir</label>
                   <input
                     type="date"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("tanggal_lahir")}
                   />
                   <LabelError errorMessage={errors.tanggal_lahir?.message} />
@@ -101,7 +101,7 @@ const CreateKeluarga: React.FC = () => {
                 <div className="form_group">
                   <label className="text-sm">Status Keluarga</label>
                   <select
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("status_keluarga")}
                   >
                     <option value="anak">Anak</option>
@@ -114,7 +114,7 @@ const CreateKeluarga: React.FC = () => {
                   <label className="text-sm">Anak Ke</label>
                   <input
                     type="number"
-                    className="form_style w-full"
+                    className="input input-bordered mt-2 rounded-full w-full"
                     {...register("anak_ke")}
                   />
                   <LabelError errorMessage={errors.anak_ke?.message} />
