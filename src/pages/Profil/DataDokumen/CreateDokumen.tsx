@@ -54,7 +54,7 @@ const CreateDokumen: React.FC = () => {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/data-dokumen')} />
         <IonContent fullscreen>
           <div className="flex flex-col min-h-full overflow-scroll  justify-center items-center ">
             <form

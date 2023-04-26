@@ -1,15 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IonContent, IonPage } from "@ionic/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
-import KembaliHeader from "../../components/KembaliHeader";
 import * as yup from "yup";
+import KembaliHeader from "../../components/KembaliHeader";
 import LabelError from "../../components/LabelError";
-import { usePost, usePut } from "../../hooks/useApi";
+import NotifAlert from "../../components/NotifAlert";
+import { usePut } from "../../hooks/useApi";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useAuth } from "../../providers/AuthProvider";
-import NotifAlert from "../../components/NotifAlert";
-import { useState } from "react";
 
 const schema = yup
   .object({
@@ -29,7 +29,6 @@ const UbahPassword: React.FC = () => {
     register,
     formState: { errors },
     handleSubmit,
-    setError,
   } = useForm<FormData>({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -57,7 +56,7 @@ const UbahPassword: React.FC = () => {
   return (
     <>
       <IonPage >
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('profil')} />
         <IonContent fullscreen>
           <div className="flex flex-col  h-full justify-center items-center ">
             <form

@@ -94,7 +94,7 @@ const EditPelatihan: React.FC = () => {
                 className="w-full px-12"
               >
                 <h3 className="text-xl font-semibold">
-                  Form Tambah Pelatihan{" "}
+                  Form Edit Pelatihan{" "}
                 </h3>
                 <div className="flex flex-col justify-center items-center my-8 ">
                   <div className="form_group">

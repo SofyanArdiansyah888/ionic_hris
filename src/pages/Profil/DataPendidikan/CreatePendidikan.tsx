@@ -28,8 +28,6 @@ const CreatePendidikan: React.FC = () => {
     register,
     formState: { errors },
     handleSubmit,
-    setError,
-    setValue,
     reset
   } = useForm<FormData & { karyawan_id: string }>({
     mode: "onChange",
@@ -58,7 +56,7 @@ const CreatePendidikan: React.FC = () => {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/data-pendidikan')} />
         <IonContent fullscreen>
           <div className="flex flex-col  min-h-full justify-center items-center ">
             <form

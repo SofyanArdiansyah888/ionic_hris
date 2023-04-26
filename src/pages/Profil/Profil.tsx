@@ -107,7 +107,7 @@ const Profil: React.FC = () => {
                   src={image}
                   onError={() => setImage('assets/logo-icon.png')}
                   alt="Gambar Profil"
-                  className="rounded-full w-24 h-24 border-2 border-zinc-300  object-cover "
+                  className="rounded-full w-24 h-24 border-[1px] border-zinc-300  object-cover "
                 ></img>
                 <input
                   type="file"

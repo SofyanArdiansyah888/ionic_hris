@@ -113,7 +113,7 @@ export default function CreateCuti() {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/aktifitas')} />
         <IonContent fullscreen>
           <form
             onSubmit={handleSubmit(handleCreateCuti)}

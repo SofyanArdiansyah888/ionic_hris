@@ -12,7 +12,6 @@ import Loading from "../components/Loading";
 import NotifAlert from "../components/NotifAlert";
 const Tab1: React.FC = () => {
   const distance = useDistanceStore((state) => state.distance);
-  // const [successAlert, setSuccessAlert] = useState(false);
   const [dangerAlert, setDangerAlert] = useState(false);
   const [imageProfil, setImageProfil] = useState<string>(
     "assets/logo-icon.png"
@@ -30,7 +29,7 @@ const Tab1: React.FC = () => {
     if (isAbsenSuccess) {
       setTimeout(() => {
         setIsAbsenSuccess(false);
-      }, 2000);
+      }, 5000);
     }
   }, [isAbsenSuccess]);
 
@@ -53,7 +52,7 @@ const Tab1: React.FC = () => {
     endpoint: `karyawans/${user?.karyawan.id}/absen`,
     onSuccessCallback: () => {
       // setSuccessAlert(true);
-      setIsAbsenSuccess(true)
+      setIsAbsenSuccess(true);
     },
     onErrorCallback: () => setDangerAlert(true),
   });
@@ -69,7 +68,7 @@ const Tab1: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent>
+      <IonContent scrollY={false}>
         {isFetching ? (
           <Loading />
         ) : (
@@ -82,10 +81,11 @@ const Tab1: React.FC = () => {
                   src={imageProfil}
                   alt="Gambar Profil"
                   onError={() => setImageProfil("assets/logo-icon.png")}
-                  className={`w-48 h-48 rounded-full border-2 border-zinc-50 object-cover ${imageProfil === "assets/logo-icon.png"
+                  className={`w-48 h-48 rounded-full border-2 border-zinc-50 object-cover ${
+                    imageProfil === "assets/logo-icon.png"
                       ? "animate-pulse"
                       : ""
-                    }`}
+                  }`}
                 ></img>
                 {/* </div> */}
                 {/* HEADER TEXT */}
@@ -109,8 +109,10 @@ const Tab1: React.FC = () => {
                   <Fingerprint className="w-16 h-16 text-white " />
                 </button>
               ) : (
-                <div className="mt-12 mx-auto text-center bg-red-600 text-white font-semibold rounded-xl px-2 py-1 w-48">
-                  Berhasil Melakukan Absensi
+                <div className="mt-12 mx-auto text-center h-24">
+                  <div className=" bg-red-600 text-white font-semibold rounded-xl px-2 py-1 w-48">
+                    Berhasil Melakukan Absensi
+                  </div>
                 </div>
               )}
             </div>

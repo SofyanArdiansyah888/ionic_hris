@@ -1,18 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IonContent, IonPage } from "@ionic/react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
-import KembaliHeader from "../../components/KembaliHeader";
 import * as yup from "yup";
+import KembaliHeader from "../../components/KembaliHeader";
 import LabelError from "../../components/LabelError";
-import { useGet, usePost, usePut } from "../../hooks/useApi";
+import Loading from "../../components/Loading";
+import NotifAlert from "../../components/NotifAlert";
+import { useGet, usePut } from "../../hooks/useApi";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GetDetailPayload } from "../../models/GenericPayload";
 import { KaryawanEntity } from "../../models/Karyawan.entity";
-import { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
-import NotifAlert from "../../components/NotifAlert";
-import Loading from "../../components/Loading";
 
 const schema = yup
   .object({
@@ -31,7 +30,6 @@ const DataRekening: React.FC = () => {
     register,
     formState: { errors },
     handleSubmit,
-    setError,
     setValue,
   } = useForm<FormData>({
     mode: "onChange",
@@ -60,7 +58,7 @@ const DataRekening: React.FC = () => {
       setValue("nomor_rekening", karyawan.data.nomor_rekening);
       setValue("nama_pemilik_rekening", karyawan.data.nama_pemilik_rekening);
     }
-  }, [karyawan]);
+  }, [karyawan, setValue]);
 
   const history = useHistory();
 
@@ -70,7 +68,7 @@ const DataRekening: React.FC = () => {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/profil')} />
         <IonContent  scrollY>
           {isLoading ? (
             <Loading />

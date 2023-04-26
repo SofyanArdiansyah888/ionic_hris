@@ -59,7 +59,7 @@ const CreateKeluarga: React.FC = () => {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/data-keluarga')} />
         <IonContent >
           <div className="flex flex-col  justify-center items-center ">
             <form

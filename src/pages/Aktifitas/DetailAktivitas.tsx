@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useGet, usePost, usePut } from "../../hooks/useApi";
-import { IzinEntity } from "../../models/Izin.entity";
-import { GetDetailPayload } from "../../models/GenericPayload";
-import { IzinKaryawanEntity } from "../../models/IzinKaryawan.entity";
-import { useHistory, useParams } from "react-router";
-import { IonPage, IonContent } from "@ionic/react";
-import KembaliHeader from "../../components/KembaliHeader";
-import LabelError from "../../components/LabelError";
-import Loading from "../../components/Loading";
-import { register } from "../../serviceWorkerRegistration";
-import { RiwayatIzinEntity } from "../../models/RiwayatIzin.entity";
+import { IonContent, IonPage } from "@ionic/react";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
+import KembaliHeader from "../../components/KembaliHeader";
+import Loading from "../../components/Loading";
 import NotifAlert from "../../components/NotifAlert";
+import { useGet, usePost } from "../../hooks/useApi";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { GetDetailPayload } from "../../models/GenericPayload";
+import { RiwayatIzinEntity } from "../../models/RiwayatIzin.entity";
 
 const DetailAktivitas: React.FC = () => {
   const [user] = useLocalStorage("user");
@@ -74,7 +70,7 @@ const DetailAktivitas: React.FC = () => {
         ) : (
           <div className="  px-4 py-6   ">
             <h2 className="font-semibold  text-xl">Detail Aktifitas</h2>
-            <div className="flex  flex-col w-full divide-y-2 gap-3 my-8 ">
+            <div className="flex  flex-col w-full  gap-3 my-8 ">
               {kegiatans.map((kegiatan) => (
                 <div>
                   <p className="text-sm font-semibold">{kegiatan.judul}</p>
@@ -82,10 +78,11 @@ const DetailAktivitas: React.FC = () => {
                 </div>
               ))}
             </div>
+        
             {data?.data.status === "pengajuan" &&
               data.data.karyawan.atasan_id === user?.karyawan?.id && (
                 <button
-                  className="btn static bg-red-700 justify-end"
+                  className="btn static bg-red-700 border-red-700 justify-end"
                   disabled={isApproveLoading}
                   onClick={handleApprove}
                 >

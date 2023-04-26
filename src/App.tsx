@@ -11,8 +11,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import {
   Redirect,
   Route,
-  RouteComponentProps,
-  useLocation,
+  useLocation
 } from "react-router-dom";
 import Aktifitas from "./pages/Aktifitas/Aktifitas";
 import Beranda from "./pages/Beranda";
@@ -35,6 +34,9 @@ import "@ionic/react/css/core.css";
 
 /* Theme variables */
 
+import { BackgroundGeolocationPlugin } from "@capacitor-community/background-geolocation";
+import { registerPlugin } from "@capacitor/core";
+import { Geolocation } from "@capacitor/geolocation";
 import {
   BanknoteIcon,
   ContactIcon,
@@ -42,40 +44,35 @@ import {
   HistoryIcon,
   HomeIcon,
 } from "lucide-react";
+import "moment/locale/id";
 import { useEffect, useLayoutEffect } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Absensi from "./pages/Absensi";
 import CreateCuti from "./pages/Aktifitas/CreateCuti";
+import CreateIzin from "./pages/Aktifitas/CreateIzin";
+import DetailAktivitas from "./pages/Aktifitas/DetailAktivitas";
+import DetailGaji from "./pages/Gaji/DetailGaji";
 import Gaji from "./pages/Gaji/Gaji";
 import Login from "./pages/Login/login";
-import Profil from "./pages/Profil/Profil";
+import CreateDokumen from "./pages/Profil/DataDokumen/CreateDokumen";
 import DataDokumen from "./pages/Profil/DataDokumen/DataDokumen";
+import CreateKeluarga from "./pages/Profil/DataKeluarga/CreateKeluarga";
 import DataKeluarga from "./pages/Profil/DataKeluarga/DataKeluarga";
+import EditKeluarga from "./pages/Profil/DataKeluarga/EditKeluarga";
+import CreatePelatihan from "./pages/Profil/DataPelatihan/CreatePelatihan";
 import DataPelatihan from "./pages/Profil/DataPelatihan/DataPelatihan";
+import EditPelatihan from "./pages/Profil/DataPelatihan/EditPelatihan";
+import CreatePendidikan from "./pages/Profil/DataPendidikan/CreatePendidikan";
 import DataPendidikan from "./pages/Profil/DataPendidikan/DataPendidikan";
+import EditPendidikan from "./pages/Profil/DataPendidikan/EditPendidikan";
 import DataRekening from "./pages/Profil/DataRekening";
 import InformasiDasar from "./pages/Profil/InformasiDasar/InformasiDasar";
+import Profil from "./pages/Profil/Profil";
 import UbahPassword from "./pages/Profil/UbahPassword";
-import { ProtectedRoute } from "./route/ProtectedRoute";
 import { AuthProvider, useAuth } from "./providers/AuthProvider";
-import { QueryClient, QueryClientProvider } from "react-query";
-import CreatePendidikan from "./pages/Profil/DataPendidikan/CreatePendidikan";
-import CreatePelatihan from "./pages/Profil/DataPelatihan/CreatePelatihan";
-import CreateKeluarga from "./pages/Profil/DataKeluarga/CreateKeluarga";
-import CreateIzin from "./pages/Aktifitas/CreateIzin";
-import EditPendidikan from "./pages/Profil/DataPendidikan/EditPendidikan";
-import EditKeluarga from "./pages/Profil/DataKeluarga/EditKeluarga";
-import EditPelatihan from "./pages/Profil/DataPelatihan/EditPelatihan";
-import { Geolocation } from "@capacitor/geolocation";
-import { BackgroundGeolocationPlugin } from "@capacitor-community/background-geolocation";
-import { registerPlugin } from "@capacitor/core";
-import { LocalNotifications } from "@capacitor/local-notifications";
-import DetailAktivitas from "./pages/Aktifitas/DetailAktivitas";
-import "moment/locale/id";
-import DetailGaji from "./pages/Gaji/DetailGaji";
-import { distanceInMeters } from "./utils/distanceCalculator";
-import { useStore } from "zustand";
+import { ProtectedRoute } from "./route/ProtectedRoute";
 import { useDistanceStore } from "./store/DistanceStore";
-import CreateDokumen from "./pages/Profil/DataDokumen/CreateDokumen";
+import { distanceInMeters } from "./utils/distanceCalculator";
 const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>(
   "BackgroundGeolocation"
 );
@@ -367,6 +364,15 @@ const MainTabs: React.FC = () => {
         </IonTabButton>
 
         <IonTabButton
+          tab="absensi"
+          href="/absensi"
+          className={styles.tabButton}
+        >
+          <HistoryIcon strokeWidth={1} />
+          <IonLabel className={styles.tabLabel}>Absensi</IonLabel>
+        </IonTabButton>
+
+        <IonTabButton
           tab="aktifitas"
           href="/aktifitas"
           className={styles.tabButton}
@@ -380,14 +386,7 @@ const MainTabs: React.FC = () => {
           <IonLabel className={styles.tabLabel}>Gaji</IonLabel>
         </IonTabButton>
 
-        <IonTabButton
-          tab="absensi"
-          href="/absensi"
-          className={styles.tabButton}
-        >
-          <HistoryIcon strokeWidth={1} />
-          <IonLabel className={styles.tabLabel}>Absensi</IonLabel>
-        </IonTabButton>
+   
 
         <IonTabButton tab="profil" href="/profil" className={styles.tabButton}>
           <ContactIcon strokeWidth={1} />

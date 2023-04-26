@@ -80,7 +80,7 @@ export default function CreateIzin() {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/aktifitas')} />
         <IonContent fullscreen>
           <form
             onSubmit={handleSubmit(handleCreateIzin)}

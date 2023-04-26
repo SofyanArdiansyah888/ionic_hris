@@ -90,7 +90,7 @@ const EditKeluarga: React.FC = () => {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.goBack()} />
+        <KembaliHeader handleKembali={() => history.push('/data-keluarga')} />
         <IonContent >
           {isFetching ? (
             <Loading />

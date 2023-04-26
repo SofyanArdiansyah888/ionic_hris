@@ -42,7 +42,7 @@ const DataDokumen: React.FC = () => {
             <ArrowLeftCircle
               className="w-8 h-8 cursor-pointer"
               strokeWidth={1}
-              onClick={() => history.goBack()}
+              onClick={() => history.push('/profil')}
             />
           </div>
         }
