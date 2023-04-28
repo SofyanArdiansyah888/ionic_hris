@@ -58,7 +58,7 @@ const UbahPassword: React.FC = () => {
       <IonPage >
         <KembaliHeader handleKembali={() => history.push('profil')} />
         <IonContent fullscreen>
-          <div className="flex flex-col  h-full justify-center items-center ">
+          <div className="flex flex-col mt-14 justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleChangePassword)}
               className="w-full px-12"

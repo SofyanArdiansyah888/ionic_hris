@@ -95,7 +95,7 @@ const EditPendidikan: React.FC = () => {
           {isFetching ? (
             <Loading />
           ) : (
-            <div className="flex flex-col min-h-full  justify-center items-center overflow-scroll pb-24 ">
+            <div className="flex flex-col mt-14 justify-center items-center overflow-scroll pb-24 ">
               <form
                 onSubmit={handleSubmit(handleEditPendidikan)}
                 className="w-full px-12"

@@ -95,7 +95,7 @@ const EditKeluarga: React.FC = () => {
           {isFetching ? (
             <Loading />
           ) : (
-            <div className="flex flex-col  justify-center items-center ">
+            <div className="flex flex-col mt-14  justify-center items-center ">
               <form
                 onSubmit={handleSubmit(handleEditKeluarga)}
                 className="w-full px-12"

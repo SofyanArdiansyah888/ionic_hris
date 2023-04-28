@@ -81,10 +81,10 @@ export default function CreateIzin() {
     <>
       <IonPage>
         <KembaliHeader handleKembali={() => history.push('/aktifitas')} />
-        <IonContent fullscreen>
+        <IonContent scrollY>
           <form
             onSubmit={handleSubmit(handleCreateIzin)}
-            className="flex flex-col min-h-full overflow-scroll  justify-center items-center "
+            className="flex flex-col mt-12  justify-center items-center "
           >
             <div className="w-full px-12">
               <h3 className="text-xl font-semibold">Form Pengajuan Izin</h3>
@@ -135,7 +135,7 @@ export default function CreateIzin() {
                 <div className="form_group">
                   <label className="text-sm">Keterangan</label>
                   <textarea
-                    className="input input-bordered mt-2 rounded-full w-full"
+                    className="textarea textarea-bordered mt-2 rounded-full w-full"
                     {...register("keterangan")}
                   />
                   <LabelError errorMessage={errors.keterangan?.message} />

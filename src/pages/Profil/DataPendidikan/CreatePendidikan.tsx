@@ -58,7 +58,7 @@ const CreatePendidikan: React.FC = () => {
       <IonPage>
         <KembaliHeader handleKembali={() => history.push('/data-pendidikan')} />
         <IonContent fullscreen>
-          <div className="flex flex-col  min-h-full justify-center items-center ">
+          <div className="flex flex-col  mt-14 justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreatePendidikan)}
               className="w-full px-12"

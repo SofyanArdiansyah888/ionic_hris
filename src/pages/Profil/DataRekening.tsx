@@ -68,12 +68,12 @@ const DataRekening: React.FC = () => {
   return (
     <>
       <IonPage>
-        <KembaliHeader handleKembali={() => history.push('/profil')} />
-        <IonContent  scrollY>
+        <KembaliHeader handleKembali={() => history.push("/profil")} />
+        <IonContent scrollY>
           {isLoading ? (
             <Loading />
           ) : (
-            <div className="flex flex-col  h-full justify-center items-center ">
+            <div className="flex flex-col mt-14  justify-center items-center ">
               <form
                 onSubmit={handleSubmit(handleUpdateRekening)}
                 className="w-full px-12"
@@ -114,7 +114,9 @@ const DataRekening: React.FC = () => {
                 </div>
 
                 <button
-                  className={`btn bg-red-600 border-red-600 w-full my-4 ${isUpdateLoading ? 'animate-pulse' : ''}`}
+                  className={`btn bg-red-600 border-red-600 w-full my-4 ${
+                    isUpdateLoading ? "animate-pulse" : ""
+                  }`}
                   type="submit"
                   disabled={isUpdateLoading}
                 >

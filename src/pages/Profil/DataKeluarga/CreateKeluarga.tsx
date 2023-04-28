@@ -61,7 +61,7 @@ const CreateKeluarga: React.FC = () => {
       <IonPage>
         <KembaliHeader handleKembali={() => history.push('/data-keluarga')} />
         <IonContent >
-          <div className="flex flex-col  justify-center items-center ">
+          <div className="flex flex-col mt-14  justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreateKeluarga)}
               className="w-full px-12"

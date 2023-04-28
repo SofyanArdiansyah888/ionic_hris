@@ -56,7 +56,7 @@ const CreateDokumen: React.FC = () => {
       <IonPage>
         <KembaliHeader handleKembali={() => history.push('/data-dokumen')} />
         <IonContent fullscreen>
-          <div className="flex flex-col min-h-full overflow-scroll  justify-center items-center ">
+          <div className="flex flex-col mt-14 overflow-scroll  justify-center items-center ">
             <form
               onSubmit={handleSubmit(handleCreateDokumen)}
               className="w-full px-12"

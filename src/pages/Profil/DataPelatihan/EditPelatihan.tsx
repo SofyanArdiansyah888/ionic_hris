@@ -88,7 +88,7 @@ const EditPelatihan: React.FC = () => {
           {isFetching ? (
             <Loading />
           ) : (
-            <div className="flex flex-col  h-full justify-center items-center ">
+            <div className="flex flex-col  mt-14 justify-center items-center ">
               <form
                 onSubmit={handleSubmit(handleEditPelatihan)}
                 className="w-full px-12"

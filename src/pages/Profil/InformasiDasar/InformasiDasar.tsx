@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IonContent, IonInput, IonPage } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
@@ -108,7 +108,7 @@ const InformasiDasar: React.FC = () => {
           {isLoading ? (
             <Loading />
           ) : (
-            <div className="flex flex-col   justify-center items-center ">
+            <div className="flex flex-col mt-14   justify-center items-center ">
               <form
                 onSubmit={handleSubmit(handleUpdateRekening)}
                 className="w-full px-12"
@@ -118,9 +118,8 @@ const InformasiDasar: React.FC = () => {
                   {/* USERNAME */}
                   <div className="form_group">
                     <label className="text-sm">Username</label>
-                    <IonInput
+                    <input
                       type="text"
-                      inputMode="text"
                       className="input input-bordered mt-2 rounded-full w-full"
                       {...register("username")}
                     />
@@ -129,9 +128,8 @@ const InformasiDasar: React.FC = () => {
                   {/* NAMA LENGKAP */}
                   <div className="form_group">
                     <label className="text-sm">Nama Lengkap</label>
-                    <IonInput
+                    <input
                       type="text"
-                      inputMode="text"
                       className="input input-bordered mt-2 rounded-full w-full"
                       {...register("nama_lengkap")}
                     />

@@ -114,10 +114,10 @@ export default function CreateCuti() {
     <>
       <IonPage>
         <KembaliHeader handleKembali={() => history.push('/aktifitas')} />
-        <IonContent fullscreen>
+        <IonContent scrollY>
           <form
             onSubmit={handleSubmit(handleCreateCuti)}
-            className="flex flex-col  justify-center items-center py-8 "
+            className="flex flex-col  justify-center items-center mt-14 "
           >
             <div className="w-full px-12">
               <h3 className="text-xl font-semibold">Form Pengajuan Cuti</h3>
@@ -182,7 +182,7 @@ export default function CreateCuti() {
                 <div className="form_group">
                   <label className="text-sm">Keterangan</label>
                   <textarea
-                    className="input input-bordered rounded-full w-full py-2 mt-2"
+                    className="textarea textarea-bordered rounded-full w-full py-2 mt-2"
                     {...register("keterangan")}
                   />
                   <LabelError errorMessage={errors.keterangan?.message} />
